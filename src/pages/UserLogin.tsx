@@ -50,7 +50,7 @@ const UserLogin = () => {
         <div>
             <_Wrapper>
             <_Form>
-            <_Logo src='YSIT-logo.png'></_Logo>
+            <_Logo src='YSIT22.png'></_Logo>
                 <_Subtitle>환영합니다!</_Subtitle>
             <TeamName/>
                 <_BtnWrap>
@@ -75,9 +75,9 @@ const UserLogin = () => {
                 로그인 하기
             </Button>
             <_FindWrap>
-            <_Find onClick={()=>navigate('/find-id')}>아이디 찾기</_Find>
-            <_Line/>
-            <_Find onClick={()=>navigate('/find-pw')}>비밀번호 찾기</_Find>
+                <_Find onClick={()=>navigate('/find-id')}>아이디 찾기</_Find>
+                <_Line/>
+                <_Find onClick={()=>navigate('/find-pw')}>비밀번호 찾기</_Find>
             </_FindWrap>
             </_Form>
             </_Wrapper>
@@ -88,8 +88,8 @@ const UserLogin = () => {
 export default UserLogin;
 
 const _Logo = styled.img`
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 71px;
     margin: 0 auto;
     margin-bottom: 20px;
 `;
