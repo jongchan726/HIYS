@@ -4,7 +4,7 @@ import TeamName from '../components/TeamName';
 import Input from '../components/Input'
 import Button from '../components/Button';
 import {useNavigate} from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 const UserLogin = () => {
     const [inputId, setInputId] = useState('')
@@ -25,13 +25,17 @@ const UserLogin = () => {
     }
 
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
-    // useEffect(() => {
-    //     axios.get('/user_inform/login')
-    //     .then(res => console.log(res))
-    //     .catch()
-    // },
+    useEffect(() => {
+        axios.post('/api/user/login', {
+            loginId: inputId,
+            loginPw: inputPw
+        })
+        .then(res => console.log(res))
+        .catch()
+    },
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    // [])
+    [])
+    
     let navigate = useNavigate();
     const [color1, setColor1] = useState('#1E00D3');
     const [color2, setColor2] = useState('#B7B7B7');
