@@ -3,25 +3,16 @@ import styled from 'styled-components';
 function MenuBar2() {
     return (
         <MenuBarContainer>
-            <MenuItem>메뉴1
-            <SecondMenuBarContainer>
-                <SecondMenuItem>Menu 1</SecondMenuItem>
-                <SecondMenuItem>Menu 2</SecondMenuItem>
-                <SecondMenuItem>Menu 3</SecondMenuItem>
-            </SecondMenuBarContainer></MenuItem>
-            <MenuItem>메뉴2
-            <SecondMenuBarContainer>
-                <SecondMenuItem>Menu ㄱ</SecondMenuItem>
-                <SecondMenuItem>Menu ㄴ</SecondMenuItem>
-                <SecondMenuItem>Menu ㄷ</SecondMenuItem>
-            </SecondMenuBarContainer></MenuItem>
-            <MenuItem>메뉴3
-            <SecondMenuBarContainer>
-                <SecondMenuItem>Menu a</SecondMenuItem>
-                <SecondMenuItem>Menu b</SecondMenuItem>
-                <SecondMenuItem>Menu c</SecondMenuItem>
-            </SecondMenuBarContainer>
-            </MenuItem>
+            <_Logo src='YSIT-logo.png'></_Logo>
+            <MenuItem>게시판</MenuItem>
+            <MenuItem>방과후</MenuItem>
+            <MenuItem>대여/반납</MenuItem>
+            <MenuItem>상담신청</MenuItem>
+            <MenuItem>학생관리</MenuItem>
+            <_Thwrap>
+            <_Name>장두영<_Tier>선생님</_Tier></_Name>
+            <_Smalltalk>좋은하루되세요</_Smalltalk>
+            </_Thwrap>
         </MenuBarContainer>
     );
 }
@@ -31,45 +22,53 @@ export default MenuBar2;
 const MenuBarContainer = styled.div`
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 5vw;
     color: #555;
-    font-size: 1.2rem;
+    font-size: 14px;
     position: relative;
     font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid gray;
 `;
 
 const MenuItem = styled.div`
     cursor: pointer;
-    padding: 0 20px;
+    margin-left: 3vw;
     height: 100%;
     display: flex;
     align-items: center;
     :hover {
-        background-color: #444;
-        color: #eee;
+        color: #1E00D3;
+        box-shadow: inset 0 -2px 0 #1E00D3;
         >div{
             display: block;
         }
     }
 `;
 
-const SecondMenuBarContainer = styled.div`
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background-color: #eee;
-    color: #333;
-    font-size: 1.2rem;
+const _Logo = styled.img`
+    width: 64px;
+    height: 64px;
 `;
 
-const SecondMenuItem = styled.div`
-    cursor: pointer;
-    padding: 0 20px;
-    height: 100%;
+const _Thwrap = styled.div`
     display: flex;
-    align-items: center;
-    &:hover {
-        background-color: #ddd;
-    }
-`;
+    flex-direction: column;
+    margin-left: 53vw;
+`
+
+const _Name = styled.span`
+    color: #1E00D3;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+`
+const _Tier = styled.span`
+    color: black;
+    font-size: 16px;
+`
+
+const _Smalltalk = styled.span`
+    color: black;
+    font-size: 14px;
+`

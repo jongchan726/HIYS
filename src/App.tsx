@@ -8,6 +8,7 @@ import Findid from './pages/Findid'
 import Findpw from './pages/Findpw'
 import Menubar from './components/Menubar';
 import MenuBar2 from './components/Menubar2';
+import MenuBar3 from './components/Menubar3';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <Route path="/user-login" element={<UserLogin />} />
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/find-id" element={<MenuBar2 />} />
-      <Route path="/find-pw" element={<Menubar />} />
+      <Route path="/find-pw" element={<MenuBar3 />} />
     </Routes>
     </Router>
   );
