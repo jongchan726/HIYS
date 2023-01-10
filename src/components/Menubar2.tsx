@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 function MenuBar2() {
     return (
+        <>
         <MenuBarContainer>
             <_Logo src='YSIT-logo.png'></_Logo>
             <MenuItem>게시판</MenuItem>
@@ -13,7 +14,10 @@ function MenuBar2() {
             <_Name>장두영<_Tier>선생님</_Tier></_Name>
             <_Smalltalk>좋은하루되세요</_Smalltalk>
             </_Thwrap>
+            
         </MenuBarContainer>
+        <_Bbox></_Bbox>
+        </>
     );
 }
 
@@ -29,6 +33,10 @@ const MenuBarContainer = styled.div`
     font-weight: bold;
     padding: 5px;
     border-bottom: 1px solid gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 `;
 
 const MenuItem = styled.div`
@@ -71,4 +79,10 @@ const _Tier = styled.span`
 const _Smalltalk = styled.span`
     color: black;
     font-size: 14px;
+`
+
+const _Bbox = styled.div`
+    width: 100px;
+    height: 1000px;
+    background-color: red;
 `

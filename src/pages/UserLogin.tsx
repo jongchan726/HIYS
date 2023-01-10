@@ -21,7 +21,7 @@ const UserLogin = () => {
 
 	// login 버튼 클릭 이벤트
     const onClickLogin = () => {
-        navigate('/')
+        navigate('/home')
     }
 
 	// 페이지 렌더링 후 가장 처음 호출되는 함수

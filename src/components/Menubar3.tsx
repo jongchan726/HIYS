@@ -23,6 +23,9 @@ const MenuBar3 = () => {
             <NavLink>
             <Link href="#">학생관리</Link>
             </NavLink>
+            {/* <NavLink>
+            <_Teacher href="#">장두영</_Teacher>
+            </NavLink> */}
         </NavLinks>
         <Hamburger onClick={() => setIsNavOpen(!isNavOpen)}>
             &#9776;
@@ -39,7 +42,12 @@ const Navbar = styled.nav`
     /* justify-content: space-between; */
     padding: 0.5rem 1rem;
     color: #555555;
-    border-bottom: 1px solid #999999;
+    background-color: rgba( 255, 255, 255, 0.8 );
+    border-bottom: 0.8px solid #999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 `;
 
 const _Logo = styled.img`
@@ -75,6 +83,7 @@ const NavLinks = styled.ul<StyledNavLinksProps>`
     @media (max-width: 600px) {
         flex-direction: column;
         align-items: center;
+        margin-left: -4vw;
         width: 100%;
         height: 0;
         overflow: hidden;
@@ -84,7 +93,7 @@ const NavLinks = styled.ul<StyledNavLinksProps>`
     li {
         padding: 1rem;
         animation: ${props =>
-        props.open ? "slideDown 0.8s ease forwards" : "none"}
+        props.open ? "slideDown 0.8s ease forwards" : "none"};
     }
     @keyframes slideDown {
         0% {
@@ -115,4 +124,13 @@ const slideDown = keyframes`
         transform: translateY(0);
         opacity: 1;
     }
-`
+`;
+
+// const _Teacher = styled.a`
+//     color: #1E00D3;
+//     text-decoration: none;
+//     font-weight: bold;
+//     &:hover {
+//         cursor: pointer;
+//     }
+// `;
