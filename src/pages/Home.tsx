@@ -6,7 +6,7 @@ const Home = () => {
     return (
       <>
       <Menubar/>
-      <_Notice>공지사항</_Notice>
+      {/* <_Notice>공지사항</_Notice> */}
       <_Itfwrap>
       <_Interface></_Interface>
       <_Interface></_Interface>
@@ -36,6 +36,7 @@ const _Itfwrap = styled.div`
   width: 90vw;
   height: 400px;
   margin-left:5%;
+  margin-top: 6vw;
   display: flex;
   justify-content: space-between;
 

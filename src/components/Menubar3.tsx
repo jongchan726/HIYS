@@ -4,6 +4,9 @@ import styled, {keyframes} from 'styled-components';
 
 const MenuBar3 = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const bell: string = require("../assets/bell.svg").default;
+
     return (
         <Navbar>
             <_Logo src='YSIT-logo.png'></_Logo>
@@ -23,9 +26,17 @@ const MenuBar3 = () => {
             <NavLink>
             <Link href="#">학생관리</Link>
             </NavLink>
-            {/* <NavLink>
-            <_Teacher href="#">장두영</_Teacher>
-            </NavLink> */}
+            <_Rightitemwrap>
+            <_Bell src={bell} alt="logo" />
+            <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/>
+            {isModalVisible && (
+                <ModalWrapper>
+                    <ModalContent>
+                        안녕하세요
+                    </ModalContent>
+                </ModalWrapper>
+            )}
+            </_Rightitemwrap>
         </NavLinks>
         <Hamburger onClick={() => setIsNavOpen(!isNavOpen)}>
             &#9776;
@@ -80,6 +91,7 @@ const NavLinks = styled.ul<StyledNavLinksProps>`
     list-style: none;
     display: flex;
     margin-left: 25px;
+    
     @media (max-width: 600px) {
         flex-direction: column;
         align-items: center;
@@ -89,6 +101,9 @@ const NavLinks = styled.ul<StyledNavLinksProps>`
         overflow: hidden;
         transition: height 0.2s ease;
         ${props => (props.open ? "height: auto;" : "")}
+        >div{
+            display: none;
+        }
     }
     li {
         padding: 1rem;
@@ -107,7 +122,6 @@ const NavLinks = styled.ul<StyledNavLinksProps>`
     }
 `;
 
-
 const NavLink = styled.li`
     @media (max-width: 600px) {
         width: 100%;
@@ -115,22 +129,63 @@ const NavLink = styled.li`
     }
 `;
 
-const slideDown = keyframes`
-    0% {
-        transform: translateY(-1rem);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-`;
+const _Rightitemwrap = styled.div`
+    display: flex;
+    align-items: center;
+    position: absolute;
+    margin-left: 83%;
+    margin-top: 0.5%;
+`
 
-// const _Teacher = styled.a`
-//     color: #1E00D3;
-//     text-decoration: none;
+const _Bell = styled.img`
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+`
+
+const _Profile = styled.img`
+    width: 38px;
+    height: 38px;
+    border-radius: 70%;
+    margin-left: 13px;
+    cursor: pointer;
+`
+// interface Thprops {
+//     font : any
+// }
+// const _Teacher = styled.span<Thprops>`
+//     color: ${props => props.color};
 //     font-weight: bold;
-//     &:hover {
+//     margin-left: 15px;
+//     font-size: ${props => props.font};
+//     :last-child {
+//         margin-top: 3px;
+//         margin-left: 0;
+//     }
+//     :hover {
 //         cursor: pointer;
 //     }
 // `;
+
+//모달창 스타일
+interface ModalProps {
+    visible: boolean;
+}
+const ModalWrapper = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 70px;
+    margin-left: 85%;
+    z-index: 2;
+`;
+
+const ModalContent = styled.div`
+    background-color: white;
+    padding: 1rem;
+    width: 100px;
+    height: 100px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+
+`;

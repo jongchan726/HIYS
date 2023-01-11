@@ -14,9 +14,7 @@ function MenuBar2() {
             <_Name>장두영<_Tier>선생님</_Tier></_Name>
             <_Smalltalk>좋은하루되세요</_Smalltalk>
             </_Thwrap>
-            
         </MenuBarContainer>
-        <_Bbox></_Bbox>
         </>
     );
 }
