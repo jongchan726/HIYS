@@ -4,14 +4,12 @@ import TeamName from '../components/TeamName';
 import Input from '../components/Input'
 import Button from '../components/Button';
 import {useNavigate} from 'react-router-dom';
-import { useDispatch } from "react-redux";
 import axios from 'axios';
 
 const UserLogin = () => {
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
     const [Loding, setLoding] = useState(false)
-    const dispatch = useDispatch();
 
 	// input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
     const handleInputId = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -27,39 +25,40 @@ const UserLogin = () => {
         navigate('/home')
     }
 
-    const LoginFunc = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        if (!inputId) {
-        return alert("ID를 입력하세요.");
-        }
-        else if (!inputPw) {
-        return alert("Password를 입력하세요.");
-        }else {
-            let body = {
-            inputId,
-            inputPw
-            };
-        
-            axios.post("Endpoint", body)
-            .then((res) => {
-            console.log(res.data);
-            if(res.data.code === 200) {
-                console.log("로그인");
-                dispatch(loginUser(res.data.userInfo));
+    useEffect(() => {
+        const LoginFunc = async (e: { preventDefault: () => void; }) => {
+            e.preventDefault();
+            if (!inputId) {
+            return alert("ID를 입력하세요.");
             }
-            if(res.data.code === 400) {
-                alert("ID, Password가 비어있습니다.");
-            }
-            if(res.data.code === 401) {
-                alert("존재하지 않는 ID입니다.");
-            }
-            if(res.data.code === 402) {
-                alert("Password가 틀립니다.");
-            }
-            });
-        }
-        setLoding(true);
-        }
+            else if (!inputPw) {
+            return alert("Password를 입력하세요.");
+            }else {
+                let body = {
+                loginid : inputId,
+                loginpw : inputPw
+                };
+                await axios.post("http://localhost:8080", body)
+                .then((res) => {
+                console.log(res.data);
+                if(res.data.code === 200) {
+                    console.log("로그인");
+                    // dispatch(loginUser(res.data.userInfo));
+                }
+                if(res.data.code === 400) {
+                    alert("ID, Password가 비어있습니다.");
+                }
+                if(res.data.code === 401) {
+                    alert("존재하지 않는 ID입니다.");
+                }
+                if(res.data.code === 402) {
+                    alert("Password가 틀립니다.");
+                }
+                })
+                .catch((error)=>{
+                    alert(error);
+                })
+        }}}, []);
 
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
     // useEffect(() => {
