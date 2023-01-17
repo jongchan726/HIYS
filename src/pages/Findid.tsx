@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home = () => {
+const Findid = () => {
     return (
       <div>
         <h1>아이디 찾기</h1>
@@ -9,4 +9,4 @@ const Home = () => {
     );
   };
   
-  export default Home;
+  export default Findid;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Menubar from '../components/Menubar3'
+import Menubar from '../components/Menubar'
 
 const Home = () => {
     return (

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ChangeEvent, useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 interface Props extends InputStyleProps {
   type?: 'password' | 'text';
@@ -35,7 +35,7 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        // type={isInVisible ? 'password' : 'text'}
+        type={type}
       />
 
       {/* 비밀번호 온클릭 표시 */}

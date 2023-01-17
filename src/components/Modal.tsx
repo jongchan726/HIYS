@@ -13,13 +13,7 @@ const Modal = ({ children }:Ismodalprops) => {
             <button onClick={() => setIsModalVisible(!isModalVisible)}>
                 Open modal
             </button>
-            {isModalVisible && (
-                <ModalWrapper>
-                    <ModalContent>
-                        {children}
-                    </ModalContent>
-                </ModalWrapper>
-            )}
+            
         </>
     );
 };
