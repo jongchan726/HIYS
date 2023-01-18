@@ -38,7 +38,7 @@ const UserLogin = () => {
                 loginid : inputId,
                 loginpw : inputPw
                 };
-                await axios.post("http://localhost:8080", body)
+                await axios.post("/api/user/", body)
                 .then((res) => {
                 console.log(res.data);
                 if(res.data.code === 200) {

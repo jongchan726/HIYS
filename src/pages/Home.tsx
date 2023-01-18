@@ -1,20 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import Menubar from '../components/Menubar'
+import Menubar from '../components/Menubar';
+import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
+    let navigate = useNavigate();
+
     return (
       <>
       <Menubar/>
       {/* <_Notice>공지사항</_Notice> */}
       <_Itfwrap>
-      <_Interface></_Interface>
+      <_Interface><button onClick={()=>{navigate('/login')}}>로그인 버튼</button></_Interface>
       <_Interface></_Interface>
       </_Itfwrap>
       <_Itfwrap>
       <_Interface></_Interface>
       <_Interface></_Interface>
       </_Itfwrap>
+      
       </>
     );
   };
