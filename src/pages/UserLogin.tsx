@@ -24,55 +24,55 @@ const UserLogin = () => {
     const onClickLogin = () => {
         navigate('/home')
     }
-
-    useEffect(() => {
-        const LoginFunc = async (e: { preventDefault: () => void; }) => {
-            e.preventDefault();
-            if (!inputId) {
-            return alert("ID를 입력하세요.");
-            }
-            else if (!inputPw) {
-            return alert("Password를 입력하세요.");
-            }else {
-                let body = {
-                loginid : inputId,
-                loginpw : inputPw
-                };
-                await axios.post("/api/user/", body)
-                .then((res) => {
-                console.log(res.data);
-                if(res.data.code === 200) {
-                    console.log("로그인");
-                    // dispatch(loginUser(res.data.userInfo));
-                }
-                if(res.data.code === 400) {
-                    alert("ID, Password가 비어있습니다.");
-                }
-                if(res.data.code === 401) {
-                    alert("존재하지 않는 ID입니다.");
-                }
-                if(res.data.code === 402) {
-                    alert("Password가 틀립니다.");
-                }
-                })
-                .catch((error)=>{
-                    alert(error);
-                })
-        }}}, []);
+    const llogin = () => {
+        axios.post('https://f3ef-211-206-46-150.jp.ngrok.io/api/user/login', {
+                loginId : inputId,
+                loginPw : inputPw
+            })
+            .then(
+                res => console.log(res)
+            )
+            .catch()
+    }
+    // useEffect(() => {
+    //     const LoginFunc = (e: { preventDefault: () => void; }) => {
+    //         e.preventDefault();
+    //         if (!inputId) {
+    //         return alert("ID를 입력하세요.");
+    //         }
+    //         else if (!inputPw) {
+    //         return alert("Password를 입력하세요.");
+    //         }else {
+    //             let body = {
+    //             loginid : inputId,
+    //             loginpw : inputPw
+    //             };
+    //             axios.post("/api/user/", body)
+    //             .then((res) => {
+    //             console.log(res.data);
+    //             if(res.data.code === 200) {
+    //                 console.log("로그인");
+    //                 // dispatch(loginUser(res.data.userInfo));
+    //             }
+    //             if(res.data.code === 400) {
+    //                 alert("ID, Password가 비어있습니다.");
+    //             }
+    //             if(res.data.code === 401) {
+    //                 alert("존재하지 않는 ID입니다.");
+    //             }
+    //             if(res.data.code === 402) {
+    //                 alert("Password가 틀립니다.");
+    //             }
+    //             })
+    //             .catch((error)=>{
+    //                 alert(error);
+    //             })
+    //     }}}, []);
 
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
-    // useEffect(() => {
-    //     axios.post('/api/user/login', {
-    //         loginId: inputId,
-    //         loginPw: inputPw
-    //     })
-    //     .then(
-    //         res => console.log(res)
-    //         )
-    //     .catch()
-    // },
-    // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    // [])
+    
+        
+    
     
     let navigate = useNavigate();
     const [color1, setColor1] = useState('#1E00D3');
@@ -112,7 +112,7 @@ const UserLogin = () => {
                 type = "password"
                 placeholder="비밀번호를 입력해 주세요."
             />
-            <Button onClick={onClickLogin} backgroundColor={'#1E00D3'}>
+            <Button onClick={llogin} backgroundColor={'#1E00D3'}>
                 로그인 하기
             </Button>
             <_FindWrap>
