@@ -25,7 +25,7 @@ const UserLogin = () => {
         navigate('/home')
     }
     const llogin = () => {
-        axios.post('https://f3ef-211-206-46-150.jp.ngrok.io/api/user/login', {
+        axios.post('http://3.38.26.161:8080/api/user/login', {
                 loginId : inputId,
                 loginPw : inputPw
             })

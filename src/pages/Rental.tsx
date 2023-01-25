@@ -14,6 +14,13 @@ const Rental = () => {
         <Menubar/>
         <_Wrap>
             <_Header>신청하기</_Header>
+            <_Menulist>
+                <_listtitle>장비대여
+                    <_listitem>신청목록</_listitem>
+                    <_listitem>나의 신청내역</_listitem>
+                    <_listitem>문의하기</_listitem>
+                </_listtitle>
+            </_Menulist>
             <_Listwrap>
                 <_Subtext>기자재 목록<_Addbtn>추가하기 +</_Addbtn></_Subtext>
             </_Listwrap>
@@ -93,6 +100,7 @@ const _Wrap = styled.div`
         ". btn .";
 `
 
+//제목
 const _Header = styled.header`
     width: 100%;
     margin-top: 30px;
@@ -103,6 +111,7 @@ const _Header = styled.header`
     grid-area: header;
 `
 
+//기자재목록
 const _Listwrap = styled.div`
     width: 100%;
     grid-area: list;
@@ -111,6 +120,7 @@ const _Listwrap = styled.div`
     justify-content: space-between;
 `
 
+//기자재목록텍스트
 const _Subtext = styled.div`
     width: 100%;
     font-size: 23px;
@@ -120,6 +130,7 @@ const _Subtext = styled.div`
     padding-bottom: 10px;
 `
 
+//추가하기
 const _Addbtn = styled.button`
     width: 100px;
     height: 30px;
@@ -157,12 +168,14 @@ const _Input = styled.input`
     padding-left: 5px;
 `
 
+//드롭다운 부모
 const _Dropdownwrap = styled.div`
     margin-left: 20px;
     display: flex;
     align-items: center;
 `
 
+//드롭다운
 const Dropdown = styled.select`
     width: 80px;
     height: 25px;
@@ -175,6 +188,13 @@ const _Line1 = styled.div`
     margin:0 10px 0 10px;
 `
 
+//이용목적 및 이용내역 부모
+const _Input2wrap = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+//텍스트
 const _Input2title = styled.div`
     margin-top: 20px;
     font-size: 20px;
@@ -188,11 +208,7 @@ const _Input2title = styled.div`
     }
 `
 
-const _Input2wrap = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
+//경고문구
 const _Subinputtitle = styled.span`
     font-size: 16px;
     margin-left: 10px;
@@ -204,6 +220,7 @@ const _Subinputtitle = styled.span`
     }
 `
 
+//이용목적 및 이용내역 인풋
 const _Input2 = styled.textarea`
     width: 300px;
     height: 200px;
@@ -218,6 +235,7 @@ const _Input2 = styled.textarea`
     }
 `
 
+//제출버튼부모
 const Btnwrap = styled.div`
     display: flex;
     justify-content: center;
@@ -225,6 +243,8 @@ const Btnwrap = styled.div`
         border: 1px solid #888888;
     }
 `
+
+//제출버튼
 interface Container{
     bg: any;
     color: any;
@@ -240,6 +260,38 @@ const _SubmitBtn = styled.button<Container>`
     margin-top: 15px;
     font-size: 16px;
     @media (max-width: 600px) {
-    font-size: 10px;
+    font-size: 13px;
+    }
+`
+
+//장비대여메뉴
+const _Menulist = styled.div`
+    display: flex;
+    flex-direction: column;
+    grid-area: sbmenu;
+`
+
+const _listtitle = styled.ul`
+    font-size: 25px;
+    font-weight: 700;
+    margin: 10px 0px 0px 15%;
+    color: #7E5EFF;
+    li:first-child{
+        margin-top: 5px;
+    }
+    @media (max-width: 600px) {
+    display: none;
+    }
+`
+
+const _listitem = styled.li`
+    font-size: 20px;
+    font-weight: 500;
+    width: 15vw;
+    padding: 5px 0 5px 5px;
+    color: #696969;
+    :hover {
+        background: #7E5EFF;
+        color: #ffffff;
     }
 `
