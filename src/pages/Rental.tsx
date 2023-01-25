@@ -240,6 +240,6 @@ const _SubmitBtn = styled.button<Container>`
     margin-top: 15px;
     font-size: 16px;
     @media (max-width: 600px) {
-    font-size: 13px;
+    font-size: 10px;
     }
 `
