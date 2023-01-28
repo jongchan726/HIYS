@@ -139,6 +139,7 @@ const _Addbtn = styled.button`
     background-color: #1E00D3;
     color: white;
     float: right;
+    cursor: pointer;
 `
 
 const _Writewrap = styled.div`
@@ -259,6 +260,7 @@ const _SubmitBtn = styled.button<Container>`
     margin: 5px;
     margin-top: 15px;
     font-size: 16px;
+    cursor: pointer;
     @media (max-width: 600px) {
     font-size: 13px;
     }
@@ -290,6 +292,7 @@ const _listitem = styled.li`
     width: 15vw;
     padding: 5px 0 5px 5px;
     color: #696969;
+    cursor: pointer;
     :hover {
         background: #7E5EFF;
         color: #ffffff;
