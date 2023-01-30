@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar'
+import Productlist from '../Productlist.json'
 
 const Rental = () => {
     const selectList = ["apple", "banana", "grape", "orange"];
     const [Selected, setSelected] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
     // let [equipment, setequipment] = useState(["Canon XF705", "Canon EOS R6"]);
-    let [equipment, setequipment] = useState([
-        {
-            name : "Canon XF705",
-            sort : "Camera",
-            url : "CanonXf705.png"
-        },
-        {
-            name : "Canon EOS R6",
-            sort : "Camera",
-            url : "CanonEOSR6.png"
-        }]);
+    let [equipment, setequipment] = useState(Productlist);
+    const [border1, setborder1] = useState('1px solid #B7B7B7');
+    // const bordercolor: any[] | (() => any[]) = []
+    // const onCreate = () => {
+    //     const border = ['1px solid #B7B7B7'];
+
+    //     setborder1([...border1, border])
+    // }
+    const handleClick1 = () => {
+        setborder1(border1 === '1px solid #B7B7B7' ? '1px solid #1E00D3' : '1px solid #B7B7B7');
+    };
 
     const handleSelect = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelected(e.target.value);
@@ -37,23 +38,37 @@ const Rental = () => {
             <_Listwrap>
                 <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
                     {isModalVisible && (
-                    <ModalWrapper onClick={() => setIsModalVisible(!isModalVisible)}>
+                    <ModalWrapper>
                         <ModalContent>
                             <_Headmodal>
                                 기자재 추가하기
                             </_Headmodal>
+
                             <RentalListWrap>
-                                
+                                <Sortmenu><_Sort>카메라</_Sort><_Sort>삼각대</_Sort><_Sort>조명</_Sort><_Sort>녹음</_Sort><Search/></Sortmenu>
                                 {
                                 equipment.map((a, i)=>{
                                         return (
-                                            <ProductImgwrap>
+                                            
+                                            <Productwrap onClick={
+                                                // let copy = [...border1];
+                                                // copy[i] === '1px solid #B7B7B7' ? '1px solid #1E00D3' : '1px solid #B7B7B7';
+                                                // setborder1(copy)
+                                                handleClick1
+                                                //!!!---객체를 이용해서 클릭 포커스 맞출수있는지 알아볼것---!!!
+                                                //!!!---그리고 안되면 오픈카톡방에 물어보셈---!!!
+                                            } key={i}>
+                                            <ImgBorder style={{ border: border1 }}>
                                             <ProductImg src={`product/${equipment[i].url}`} />
-                                            </ProductImgwrap>
+                                            </ImgBorder>
+                                            <ProductName>{equipment[i].name}</ProductName>
+                                            </Productwrap>
                                         )
                                         })
                                 }
                             </RentalListWrap>
+                            {/* 확인버튼은 저장되게 닫기버튼은 취소로 */}
+                            <OKbtn onClick={() => setIsModalVisible(!isModalVisible)}>확인</OKbtn><Closebtn onClick={() => setIsModalVisible(!isModalVisible)}>닫기</Closebtn>
                         </ModalContent>
                     </ModalWrapper>
                 )}
@@ -127,7 +142,6 @@ const _Wrap = styled.div`
     margin-top: 70px;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: 1fr auto auto 2fr;
     grid-template-areas:
         "header header header"
         "sbmenu list ."
@@ -348,7 +362,7 @@ const ModalWrapper = styled.div`
     background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const ModalContent = styled.div`
+const ModalContent = styled.div` 
     position: absolute;
     top: 50%;
     left: 50%;
@@ -371,30 +385,92 @@ const _Headmodal = styled.h3`
 `
 
 const RentalListWrap = styled.div`
-    /* background-color: gray; */
-
+    padding: 0 25px 0 25px;
+    margin-top: 150px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 10px;
+    grid-template-areas: 
+        "sort sort sort sort"
+        "product product product product"
+        "product product product product"
 `
 
-const ProductImgwrap = styled.div`
-    width: 200px;
-    height: 120px;
+const Sortmenu = styled.div`
+    grid-area: sort;
+    display: flex;
+    box-shadow: inset 0 2px 0 #1E00D3;
+    
+`
+
+const _Sort = styled.div`
+    font-size: 16px;
+    padding: 15px;
+    cursor: pointer;
+    :hover{
+        box-shadow: inset 0 -1px 0 #1E00D3;
+    }
+`
+
+const Search = styled.input`
+    grid-area: search;
+    margin: 15px 5px 0 auto;
     border: 1px solid gray;
+    border-radius: 10px;
+    width: 130px;
+    height: 20px;
+`
+
+const Productwrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+`
+
+const ImgBorder = styled.div`
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    grid-area: product;
 `
 
 const ProductImg = styled.img`
     width: 60%;
+    grid-area: product;
+`
+
+const ProductName = styled.div`
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 5px;
+    grid-area: product;
+`
+
+const OKbtn = styled.button`
+    float: right;
+    margin: 33% 25px 0 0;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    width: 80px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1E00D3;
 `
 
 const Closebtn = styled.button`
-    width: 30px;
-    height: 25px;
-    font-size: 16px;
     float: right;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin: 33% 15px 0 0;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    width: 80px;
+    height: 35px;
+    border-radius: 8px;
     border: none;
-    background-color: red;
+    background-color: #999999;
 `
