@@ -171,9 +171,7 @@ const _Profile = styled.img`
 // `;
 
 //모달창 스타일
-interface ModalProps {
-    visible: boolean;
-}
+
 const ModalWrapper = styled.div`
     position: fixed;
     top: 0;

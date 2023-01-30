@@ -5,6 +5,19 @@ import Menubar from '../components/Menubar'
 const Rental = () => {
     const selectList = ["apple", "banana", "grape", "orange"];
     const [Selected, setSelected] = useState("");
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    // let [equipment, setequipment] = useState(["Canon XF705", "Canon EOS R6"]);
+    let [equipment, setequipment] = useState([
+        {
+            name : "Canon XF705",
+            sort : "Camera",
+            url : "CanonXf705.png"
+        },
+        {
+            name : "Canon EOS R6",
+            sort : "Camera",
+            url : "CanonEOSR6.png"
+        }]);
 
     const handleSelect = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelected(e.target.value);
@@ -22,7 +35,29 @@ const Rental = () => {
                 </_listtitle>
             </_Menulist>
             <_Listwrap>
-                <_Subtext>기자재 목록<_Addbtn>추가하기 +</_Addbtn></_Subtext>
+                <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
+                    {isModalVisible && (
+                    <ModalWrapper onClick={() => setIsModalVisible(!isModalVisible)}>
+                        <ModalContent>
+                            <_Headmodal>
+                                기자재 추가하기
+                            </_Headmodal>
+                            <RentalListWrap>
+                                
+                                {
+                                equipment.map((a, i)=>{
+                                        return (
+                                            <ProductImgwrap>
+                                            <ProductImg src={`product/${equipment[i].url}`} />
+                                            </ProductImgwrap>
+                                        )
+                                        })
+                                }
+                            </RentalListWrap>
+                        </ModalContent>
+                    </ModalWrapper>
+                )}
+            </_Subtext>
             </_Listwrap>
             <_Writewrap>
                 <_Subtext>신청서 작성</_Subtext>
@@ -70,11 +105,11 @@ const Rental = () => {
                 <_Inputtitle>연락처<_Input placeholder='연락처를 입력해주세요.' width={"150px"}/></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
-                        <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
-                        <_Input2>- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)
-                            - 촬영일자:  월  일
-                            - 사용장소:
-                            - 제작내용:
+                        <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적                           으로 적어주세요.</_Subinputtitle>
+                        <_Input2 placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;
+                            - 촬영일자:  월  일&#13;&#10;
+                            - 사용장소:&#13;&#10;
+                            - 제작내용:'>
                         </_Input2>
                     </_Input2wrap>
                 </_Input2title>
@@ -139,6 +174,8 @@ const _Addbtn = styled.button`
     background-color: #1E00D3;
     color: white;
     float: right;
+    font-size: 14px;
+    font-weight: 900;
     cursor: pointer;
 `
 
@@ -297,4 +334,67 @@ const _listitem = styled.li`
         background: #7E5EFF;
         color: #ffffff;
     }
+`
+
+//모달창 스타일
+const ModalWrapper = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalContent = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 55vw;
+    height: 90vh;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+`;
+
+//모달창 내용
+const _Headmodal = styled.h3`
+    margin: 25px;
+    padding-bottom: 10px;
+    box-shadow: inset 0 -1px 0 #888888;
+`
+
+const RentalListWrap = styled.div`
+    /* background-color: gray; */
+
+`
+
+const ProductImgwrap = styled.div`
+    width: 200px;
+    height: 120px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const ProductImg = styled.img`
+    width: 60%;
+`
+
+const Closebtn = styled.button`
+    width: 30px;
+    height: 25px;
+    font-size: 16px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    border: none;
+    background-color: red;
 `
