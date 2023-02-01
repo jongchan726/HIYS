@@ -394,6 +394,7 @@ const RentalListWrap = styled.div`
         "sort sort sort sort"
         "product product product product"
         "product product product product"
+        "btn btn btn btn"
 `
 
 const Sortmenu = styled.div`
@@ -450,27 +451,32 @@ const ProductName = styled.div`
 `
 
 const OKbtn = styled.button`
-    float: right;
-    margin: 33% 25px 0 0;
+    position: fixed;
+    bottom : 15px;
+    right: 2vw;
+    margin: 0 0 0 0;
     color: #ffffff;
     font-weight: 700;
     font-size: 15px;
-    width: 80px;
+    width: 6.5vw;
     height: 35px;
     border-radius: 8px;
     border: none;
     background-color: #1E00D3;
+    grid-area: btn;
 `
 
 const Closebtn = styled.button`
-    float: right;
-    margin: 33% 15px 0 0;
+    position: fixed;
+    bottom : 15px;
+    right: 9vw;
     color: #ffffff;
     font-weight: 700;
     font-size: 15px;
-    width: 80px;
+    width: 6.5vw;
     height: 35px;
     border-radius: 8px;
     border: none;
     background-color: #999999;
+    grid-area: btn;
 `
