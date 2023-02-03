@@ -120,7 +120,7 @@ const Rental = () => {
                 <_Inputtitle>연락처<_Input placeholder='연락처를 입력해주세요.' width={"150px"}/></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
-                        <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적                           으로 적어주세요.</_Subinputtitle>
+                        <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
                         <_Input2 placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;
                             - 촬영일자:  월  일&#13;&#10;
                             - 사용장소:&#13;&#10;
