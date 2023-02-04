@@ -1,4 +1,4 @@
-// import React from 'react';
+import React, {useState} from 'react';
 
 // const Findpw = () => {
 //     return (
@@ -10,7 +10,7 @@
 //   };
   
 //   export default Findpw;
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
 interface CartItem {
   name: string;
@@ -38,9 +38,31 @@ const ShoppingCart: React.FC = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => addToCart({ name: 'Item' })}>Add Item</button>
+      <button onClick={() => addToCart({ name: 'Hi' })}>Add Item</button>
+      <ObjectName></ObjectName>
     </div>
+    
   );
 };
 
 export default ShoppingCart;
+
+
+
+const ObjectName= () => {
+  const [clickedName, setClickedName] = useState([]);
+
+  const handleClick = (event: any) => {
+    setClickedName(event.currentTarget.id);
+  };
+
+  return (
+    <div>
+      {/* <div id={id} onClick={handleClick}>{name}</div> */}
+      <button id="object1" onClick={handleClick}>Object 1</button>
+      <button id="object2" onClick={handleClick}>Object 2</button>
+      <button id="object3" onClick={handleClick}>Object 3</button>
+      <p>{clickedName ? `You clicked on ${clickedName}` : 'Click on an object to display its name'}</p>
+    </div>
+  );
+};
