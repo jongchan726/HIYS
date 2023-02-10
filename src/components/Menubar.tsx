@@ -11,7 +11,7 @@ const MenuBar3 = () => {
 
     return (
         <Navbar>
-            <_Logo src='YSIT-logo.png'></_Logo>
+            <_Logo src='YSIT-logo.png' onClick={()=>navigate('/')}></_Logo>
         <NavLinks open={isNavOpen}>
             <NavLink>
             <_Link >게시판</_Link>
@@ -66,6 +66,7 @@ const Navbar = styled.nav`
 const _Logo = styled.img`
     width: 50px;
     height: 50px;
+    cursor: pointer;
 `;
 
 const _Link = styled.span`

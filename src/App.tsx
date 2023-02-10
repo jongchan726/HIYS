@@ -14,7 +14,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<UserLogin/>} />
-      <Route path="/sign-up" element={<Signup />} />
+      <Route path="/sign-up" element={<Signup onSubmit={function (username: string, password: string): void {
+          throw new Error('Function not implemented.');
+        } } />} />
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
       <Route path="/rental" element={<Rental />} />
