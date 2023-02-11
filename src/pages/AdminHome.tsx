@@ -17,7 +17,6 @@ const Home = () => {
     return (
       <>
       <Menubar/>
-      <button onClick={()=>{navigate('/login')}}>로그인 버튼</button>
       {/* <_Notice>공지사항</_Notice> */}
       <_Itfwrap>
       <_Interface>

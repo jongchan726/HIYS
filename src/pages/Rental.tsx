@@ -6,16 +6,11 @@ import Productlist from '../Productlist.json'
 const Rental = () => {
     const selectList = ["apple", "banana", "grape", "orange"];
     const [Selected, setSelected] = useState("");
+    const [cart, setcart]: any[] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    // let [equipment, setequipment] = useState(["Canon XF705", "Canon EOS R6"]);
-    let [equipment, setequipment] = useState(Productlist);
+    let [Product, setProduct] = useState(Productlist);
     const [border1, setborder1] = useState('1px solid #B7B7B7');
-    // const bordercolor: any[] | (() => any[]) = []
-    // const onCreate = () => {
-    //     const border = ['1px solid #B7B7B7'];
-
-    //     setborder1([...border1, border])
-    // }
+    
     const handleClick1 = () => {
         setborder1(border1 === '1px solid #B7B7B7' ? '1px solid #1E00D3' : '1px solid #B7B7B7');
     };
@@ -23,6 +18,7 @@ const Rental = () => {
     const handleSelect = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelected(e.target.value);
     };
+
     return (
         <>
         <Menubar/>
@@ -43,25 +39,39 @@ const Rental = () => {
                             <_Headmodal>
                                 기자재 추가하기
                             </_Headmodal>
-
+                            <Cartwrap>
+                            {
+                                cart.map((a: any, i: string | number)=>{
+                                        return (
+                                            <Cartproductwrap key={i}>
+                                            <CartBorder style={{ border: border1 }}>
+                                            <CartImg src={`product/${cart[i].url}`} />
+                                            </CartBorder>
+                                            <CartName>{cart[i].name}</CartName>
+                                            </Cartproductwrap>
+                                        )
+                                        })
+                                }
+                            </Cartwrap>
                             <RentalListWrap>
                                 <Sortmenu><_Sort>카메라</_Sort><_Sort>삼각대</_Sort><_Sort>조명</_Sort><_Sort>녹음</_Sort><Search/></Sortmenu>
                                 {
-                                equipment.map((a, i)=>{
+                                Product.map((a, i)=>{
                                         return (
                                             
-                                            <Productwrap onClick={
-                                                // let copy = [...border1];
-                                                // copy[i] === '1px solid #B7B7B7' ? '1px solid #1E00D3' : '1px solid #B7B7B7';
-                                                // setborder1(copy)
-                                                handleClick1
-                                                //!!!---객체를 이용해서 클릭 포커스 맞출수있는지 알아볼것---!!!
-                                                //!!!---그리고 안되면 오픈카톡방에 물어보셈---!!!
-                                            } key={i}>
+                                            <Productwrap onClick={()=>{
+                                                const cartItem = {
+                                                    id : Product[i].id,
+                                                    name : Product[i].name,
+                                                    url : Product[i].url,
+                                                    sort : Product[i].sort
+                                                }
+                                                setcart([...cart, cartItem]);
+                                            }} key={i}>
                                             <ImgBorder style={{ border: border1 }}>
-                                            <ProductImg src={`product/${equipment[i].url}`} />
+                                            <ProductImg src={`product/${Product[i].url}`} />
                                             </ImgBorder>
-                                            <ProductName>{equipment[i].name}</ProductName>
+                                            <ProductName>{Product[i].name}</ProductName>
                                             </Productwrap>
                                         )
                                         })
@@ -384,9 +394,54 @@ const _Headmodal = styled.h3`
     box-shadow: inset 0 -1px 0 #888888;
 `
 
+////////////////////////////////////////////////////////////////////작업중/////////////////////
+const Cartwrap = styled.div`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 0 25px 0 25px;
+    grid-column-gap: 10px;
+`
+
+const Cartproductwrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+const Borderwrap = styled.div`
+    display: flex;
+`
+const CartBorder = styled.div`
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+`
+
+const Removebtn = styled.button`
+    border-radius: 50%;
+    background-color: #888888;
+    width: 20px;
+    height: 20px;
+`
+
+const CartImg = styled.img`
+    width: 60%;
+`
+
+const CartName = styled.div`
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 5px;
+`
+
+
 const RentalListWrap = styled.div`
     padding: 0 25px 0 25px;
-    margin-top: 150px;
+    /* margin-top: 150px; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 10px;
@@ -401,7 +456,7 @@ const Sortmenu = styled.div`
     grid-area: sort;
     display: flex;
     box-shadow: inset 0 2px 0 #1E00D3;
-    
+    margin-top: 10px;
 `
 
 const _Sort = styled.div`
