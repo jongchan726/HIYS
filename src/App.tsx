@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Findid from './pages/Findid';
 import Findpw from './pages/Findpw';
 import Rental from './pages/Rental';
+import AdminRental from './pages/AdminRental'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
       <Route path="/rental" element={<Rental />} />
+      <Route path="/ad-rental" element={<AdminRental/>} />
     </Routes>
     </Router>
   );
