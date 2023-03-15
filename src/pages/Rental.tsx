@@ -25,14 +25,28 @@ const Rental = () => {
         <_Wrap>
             <_Header>신청하기</_Header>
             <_Menulist>
-                <_listtitle>장비대여
+                {/* <_listtitle>장비대여
                     <_listitem>신청목록</_listitem>
                     <_listitem>나의 신청내역</_listitem>
                     <_listitem>문의하기</_listitem>
-                </_listtitle>
+                </_listtitle> */}
             </_Menulist>
             <_Listwrap>
                 <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
+                <Cartwrap>
+                            {
+                                cart.map((a: any, i: string | number)=>{
+                                        return (
+                                            <Cartproductwrap key={i}>
+                                            <CartBorder style={{ border: border1 }}>
+                                            <CartImg src={`product/${cart[i].url}`} />
+                                            </CartBorder>
+                                            <CartName>{cart[i].name}</CartName>
+                                            </Cartproductwrap>
+                                        )
+                                        })
+                                }
+                            </Cartwrap>
                     {isModalVisible && (
                     <ModalWrapper>
                         <ModalContent>
@@ -127,7 +141,7 @@ const Rental = () => {
                     </Dropdown>
                     </_Dropdownwrap>
                 </_Inputtitle>
-                <_Inputtitle>연락처<_Input placeholder='연락처를 입력해주세요.' width={"150px"}/></_Inputtitle>
+                <_Inputtitle>연락처<_Input type="tel" placeholder="00*-000*-0000" maxLength={13}></_Input></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
                         <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
@@ -334,32 +348,6 @@ const _Menulist = styled.div`
     grid-area: sbmenu;
 `
 
-const _listtitle = styled.ul`
-    font-size: 25px;
-    font-weight: 700;
-    margin: 10px 0px 0px 15%;
-    color: #7E5EFF;
-    li:first-child{
-        margin-top: 5px;
-    }
-    @media (max-width: 600px) {
-    display: none;
-    }
-`
-
-const _listitem = styled.li`
-    font-size: 20px;
-    font-weight: 500;
-    width: 15vw;
-    padding: 5px 0 5px 5px;
-    color: #696969;
-    cursor: pointer;
-    :hover {
-        background: #7E5EFF;
-        color: #ffffff;
-    }
-`
-
 //모달창 스타일
 const ModalWrapper = styled.div`
     position: fixed;
@@ -408,9 +396,7 @@ const Cartproductwrap = styled.div`
     justify-content: center;
     align-items: center;
 `
-const Borderwrap = styled.div`
-    display: flex;
-`
+
 const CartBorder = styled.div`
     height: 100%;
     width: 70%;
@@ -418,13 +404,6 @@ const CartBorder = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-`
-
-const Removebtn = styled.button`
-    border-radius: 50%;
-    background-color: #888888;
-    width: 20px;
-    height: 20px;
 `
 
 const CartImg = styled.img`

@@ -20,11 +20,34 @@ const AdminRental = () => {
         <>
     <_Wrap>
     <Menubar/>
-    <_Header>제목</_Header>
+    <_Header>{dumy[0].number} {dumy[0].name}님의 신청</_Header>
     <_List>기자재 목록</_List>
+        {/* <Cartwrap>
+        {
+            cart.map((a: any, i: string | number)=>{
+                    return (
+                        <Cartproductwrap key={i}>
+                        <CartBorder style={{ border: border1 }}>
+                        <CartImg src={`product/${cart[i].url}`} />
+                        </CartBorder>
+                        <CartName>{cart[i].name}</CartName>
+                        </Cartproductwrap>
+                    )
+                    })
+            }
+        </Cartwrap> */}
     <_Write>신청서</_Write>
+    <_Writewrap>
+        <_Inputtitle>이름 : {dumy[0].name}</_Inputtitle>
+        <_Inputtitle>학번 : {dumy[0].number}</_Inputtitle>
+        <_Inputtitle>이용인원 : {dumy[0].person}</_Inputtitle>
+        <_Inputtitle>대여기간 : {dumy[0].period}</_Inputtitle>
+        <_Inputtitle>불출시점 : {dumy[0].meet}</_Inputtitle>
+        <_Inputtitle>전화번호 : {dumy[0].phonenum}</_Inputtitle>
+        <_Inputtitle>이용목적 : {dumy[0].purpose}</_Inputtitle>
+    </_Writewrap>
     <Btnwrap>
-        <_SubmitBtn bg="#0cde25" color="#ffffff" 
+        <_SubmitBtn border="#0cde25" color="#000000" 
             onClick={()=>{
                 setAccept(true)
                 alert("수락되었습니다.")
@@ -37,7 +60,7 @@ const AdminRental = () => {
                     console.error(error);
                 });
             }}>수락</_SubmitBtn>
-        <_SubmitBtn bg="#ff0000" color="#ffffff"
+        <_SubmitBtn border="#ff0000" color="#000000"
             onClick={()=>{
                 setAccept(false)
                 alert("거절되었습니다.")
@@ -64,7 +87,9 @@ const _Wrap = styled.div`
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-areas:
         "header header header"
+        ". listtitle ."
         ". list ."
+        ". writetitle ."
         ". write ."
         ". btn .";
 `
@@ -86,7 +111,8 @@ const _List = styled.div`
     color: #000000;
     box-shadow: inset 0 -2px 0 #1E00D3;
     padding-bottom: 10px;
-    grid-area: list;
+    margin-top: 10px;
+    grid-area: listtitle;
 `
 
 const _Write = styled.div`
@@ -96,7 +122,8 @@ const _Write = styled.div`
     color: #000000;
     box-shadow: inset 0 -2px 0 #1E00D3;
     padding-bottom: 10px;
-    grid-area: write;
+    margin-top: 10px;
+    grid-area: writetitle;
 `
 
 //제출버튼부모
@@ -108,16 +135,17 @@ const Btnwrap = styled.div`
 
 //제출버튼
 interface Container{
-    bg: any;
+    border: any;
     color: any;
 }
 const _SubmitBtn = styled.button<Container>`
     width: 25vw;
     height: 60px;
-    background: ${props => props.bg};
+    /* border: ${props => props.border}; */
+    border: black;
     color : ${props => props.color};
     border-radius: 15px;
-    border: none;
+    background: #ffffff;
     margin: 5px;
     margin-top: 15px;
     font-size: 16px;
@@ -126,4 +154,23 @@ const _SubmitBtn = styled.button<Container>`
     @media (max-width: 600px) {
     font-size: 13px;
     }
+`
+
+const _Writewrap = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-area: write;
+`
+
+const _Inputtitle = styled.div`
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /* padding-left: 10px; */
+    text-align: center;
+    /* box-shadow: inset 0 -1px 0 #888888; */
+    display: flex;
+    justify-content: center;
 `
