@@ -4,20 +4,10 @@ import Menubar from '../components/Menubar'
 import Productlist from '../Productlist.json'
 
 const Rental = () => {
-    const selectList = ["apple", "banana", "grape", "orange"];
-    const [Selected, setSelected] = useState("");
     const [cart, setcart]: any[] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     let [Product, setProduct] = useState(Productlist);
     const [border1, setborder1] = useState('1px solid #B7B7B7');
-    
-    const handleClick1 = () => {
-        setborder1(border1 === '1px solid #B7B7B7' ? '1px solid #1E00D3' : '1px solid #B7B7B7');
-    };
-
-    const handleSelect = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setSelected(e.target.value);
-    };
 
     return (
         <>
@@ -102,46 +92,22 @@ const Rental = () => {
                 <_Subtext>신청서 작성</_Subtext>
                 <_Inputtitle>이름<_Input placeholder='이름을 입력해주세요.' width={"150px"}/></_Inputtitle>
                 <_Inputtitle>학번<_Input placeholder='학번을 입력해주세요.' width={"150px"}/></_Inputtitle>
-                <_Inputtitle>이용인원<_Input placeholder='9' width={"35px"}/>명</_Inputtitle>
+                <_Inputtitle>이용인원<_Input placeholder='9' width={"35px"} />명</_Inputtitle>
+                <Rentaldate>
                 <_Inputtitle>대여기간
                     <_Dropdownwrap>
-                    <Dropdown onChange={handleSelect} value={Selected}>
-                        {selectList.map((item) => (
-                        <option value={item} key={item}>
-                            {item}
-                        </option>
-                        ))}
-                    </Dropdown>
-                        <_Line1/>
-                    <Dropdown onChange={handleSelect} value={Selected}>
-                        {selectList.map((item) => (
-                        <option value={item} key={item}>
-                            {item}
-                        </option>
-                        ))}
-                    </Dropdown>
+                    <input type="date"/> <_Line1/> <input type="date"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
+                </Rentaldate>
+                <Rentaldate>
                 <_Inputtitle>불출시점
-                <_Dropdownwrap>
-                    <Dropdown onChange={handleSelect} value={Selected}>
-                        {selectList.map((item) => (
-                        <option value={item} key={item}>
-                            {item}
-                        </option>
-                        ))}
-                    </Dropdown>
-                        <_Line1/>
-                    <Dropdown onChange={handleSelect} value={Selected}>
-                        {selectList.map((item) => (
-                        <option value={item} key={item}>
-                            {item}
-                        </option>
-                        ))}
-                    </Dropdown>
+                    <_Dropdownwrap>
+                        <input type="time"/> <_Line1/> <input type="time"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
-                <_Inputtitle>연락처<_Input type="tel" placeholder="00*-000*-0000" maxLength={13}></_Input></_Inputtitle>
+                </Rentaldate>
+                <_Inputtitle>연락처<_Input type="tel" placeholder="01012345678" maxLength={11}></_Input></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
                         <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
@@ -251,11 +217,7 @@ const _Dropdownwrap = styled.div`
     align-items: center;
 `
 
-//드롭다운
-const Dropdown = styled.select`
-    width: 80px;
-    height: 25px;
-`
+
 
 const _Line1 = styled.div`
     width: 8px;
@@ -513,4 +475,17 @@ const Closebtn = styled.button`
     border: none;
     background-color: #999999;
     grid-area: btn;
+`
+
+const Rentaldate = styled.div`
+    >div{
+        @media (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+            >div{
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+    }
 `

@@ -28,8 +28,11 @@ const MenuBar3 = () => {
             <NavLink>
             <_Link >학생관리</_Link>
             </NavLink>
+            <NavLink>
+            <_Link onClick={()=>navigate('/Notification')}>신청내역</_Link>
+            </NavLink>
             <_Rightitemwrap>
-            <_Bell src={bell} alt="logo" />
+            {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
             <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/>
             {isModalVisible && (
                 <ModalWrapper>

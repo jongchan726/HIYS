@@ -9,6 +9,8 @@ import Findid from './pages/Findid';
 import Findpw from './pages/Findpw';
 import Rental from './pages/Rental';
 import AdminRental from './pages/AdminRental'
+import Notification from './pages/Notification'
+import Test from './pages/Test'
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
       <Route path="/find-pw" element={<Findpw />} />
       <Route path="/rental" element={<Rental />} />
       <Route path="/ad-rental" element={<AdminRental/>} />
+      <Route path="/Notification" element={<Notification/>} />
+      <Route path="/test" element={<Test />} />
     </Routes>
     </Router>
   );

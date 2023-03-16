@@ -267,6 +267,9 @@ const _Input = styled.input<fuxxyou>`
 const _InputWrap = styled.div`
   margin: 0 auto;
   margin-top: 10px;
+  >input:focus{
+    border: 1px solid blue;
+  }
 `;
 
 const _SignUpBtn = styled.button`
