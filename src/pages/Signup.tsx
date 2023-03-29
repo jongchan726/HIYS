@@ -37,7 +37,7 @@ const Signup = () => {
 
   const signUp = () => {
     axios
-      .post("http://3.38.26.161:8080/api/user/login", {
+      .post("http://www.zena.co.kr/api/register", {
         form,
       })
       .then(() => navigate("/"))

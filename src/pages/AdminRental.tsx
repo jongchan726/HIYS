@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
@@ -16,6 +16,15 @@ const AdminRental = () => {
             "purpose" : "응애"
         }
     ])
+    useEffect(() => {
+        const userget = (response: any) =>{
+            axios
+            .get("http://www.zena.co.kr/api/register")
+            .then(() => (response))
+            .catch();
+            console.log(response);
+        }
+    });
     return (
         <>
     <_Wrap>

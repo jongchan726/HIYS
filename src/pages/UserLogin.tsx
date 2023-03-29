@@ -25,7 +25,7 @@ const UserLogin = () => {
         navigate('/home')
     }
     const llogin = () => {
-        axios.post('http://3.38.26.161:8080/api/user/login', {
+        axios.post('http://www.zena.co.kr/api/login', {
                 loginId : inputId,
                 loginPw : inputPw
             })

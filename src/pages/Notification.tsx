@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Notification = () => {
+    let navigate = useNavigate();
+    useEffect(() => {
+        const userget = (response: any) =>{
+            axios
+            .get("http://www.zena.co.kr/api/register")
+            .then(() => (response))
+            .catch();
+            console.log(response);
+        }
+    });
     return (
     <>
         <Menubar/>
