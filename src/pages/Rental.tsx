@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar'
 import Productlist from '../Productlist.json'
+import { useNavigate } from "react-router-dom";
 
 const Rental = () => {
     const [cart, setcart]: any[] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     let [Product, setProduct] = useState(Productlist);
     const [border1, setborder1] = useState('1px solid #B7B7B7');
-
+    let navigate = useNavigate();
     return (
         <>
         <Menubar/>
@@ -22,7 +23,7 @@ const Rental = () => {
                 </_listtitle> */}
             </_Menulist>
             <_Listwrap>
-                <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
+                <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn><_Addbtn2 onClick={() => navigate("/add-camera")}>기자재 추가하기</_Addbtn2>
                 <Cartwrap>
                             {
                                 cart.map((a: any, i: string | number)=>{
@@ -169,6 +170,19 @@ const _Subtext = styled.div`
     padding-bottom: 10px;
 `
 
+const _Addbtn2 = styled.button`
+    width: 150px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1E00D3;
+    float: right;
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    margin-right: 5px;
+    cursor: pointer;
+`
 //추가하기
 const _Addbtn = styled.button`
     width: 100px;

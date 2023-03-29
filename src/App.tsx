@@ -11,6 +11,7 @@ import Rental from './pages/Rental';
 import AdminRental from './pages/AdminRental'
 import Notification from './pages/Notification'
 import Test from './pages/Test'
+import AddCamera from './pages/AddCamera'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path="/ad-rental" element={<AdminRental/>} />
       <Route path="/Notification" element={<Notification/>} />
       <Route path="/test" element={<Test />} />
+      <Route path="/add-camera" element={<AddCamera />} />
     </Routes>
     </Router>
   );
