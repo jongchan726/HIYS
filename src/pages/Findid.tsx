@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const Findid = () => {
     return (
@@ -10,4 +11,5 @@ const Findid = () => {
   };
   
   export default Findid;
+
 

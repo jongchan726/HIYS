@@ -295,6 +295,7 @@ const _Writewrap = styled.form`
     display: flex;
     flex-direction: column;
     grid-area: write;
+    
 `
 
 const _Inputtitle = styled.div`
