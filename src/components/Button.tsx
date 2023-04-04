@@ -38,9 +38,10 @@ const _Wrapper = styled.button<ButtonStyleProps>`
   border-radius: 12px;
   color: #ffffff;
   font-size: 20px;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  margin: 0 auto;
   font-weight: bold;
   border: none;
   cursor: pointer;

@@ -100,7 +100,7 @@ const Signup = () => {
               onClick={() => {
                 setJob("student");
                 console.log(job);
-                //setIsInputVisible(!isInputVisible);
+                setIsInputVisible(!isInputVisible);
                 // isInputVisible==true;
                 handleJobClick1();
                 }}>
@@ -111,7 +111,7 @@ const Signup = () => {
               onClick={() => {
                 setJob("teacher");
                 console.log(job);
-                //setIsInputVisible(!isInputVisible);
+                setIsInputVisible(!isInputVisible);
                 // isInputVisible==true;
                 handleJobClick2();
               }}>
@@ -278,7 +278,7 @@ const _JobBtn = styled.button`
 
   color: #b7b7b7;
 
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   font-family: sans-serif;
 

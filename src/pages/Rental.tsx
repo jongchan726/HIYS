@@ -3,13 +3,48 @@ import styled from 'styled-components';
 import Menubar from '../components/Menubar'
 import Productlist from '../Productlist.json'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Rental = () => {
+    const [studentID, setstudentID] = useState("");
+    const [name, setName] = useState("");
+    const [form, setform]: any = useState("");
+    const [person, setperson] = useState("");
+    const [period1, setperiod1] = useState("");
+    const [period2, setperiod2] = useState("");
+    const [meet1, setmeet1] = useState("");
+    const [meet2, setmeet2] = useState("");
+    const [phonenum, setphonenum] = useState("");
+    const [purpose, setpurpose] = useState("");
     const [cart, setcart]: any[] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     let [Product, setProduct] = useState(Productlist);
     const [border1, setborder1] = useState('1px solid #B7B7B7');
     let navigate = useNavigate();
+
+    const _Submit = () => {
+        alert("전송되었습니다")
+        //axios.post("http://3.38.26.161:8080/api/user/login"
+        axios.post("http://www.zena.co.kr/api/register", {
+            name: name, //이름
+            studentID: studentID, //학번
+            person: person, //이용인원
+            period: (period1+"~"+period2), //대여기간
+            meet: (meet1+"~"+meet2), //불출시점
+            purpose: purpose //이용목적
+            // "name" : "정채윤",
+            // "number" : "2218",
+            // "person" : "5",
+            // "period" : "3/14 ~ 3/20",
+            // "meet" : "7:00pm ~ 10:00am",
+            // "phonenum" : "01050610163",
+            // "purpose" : "응애"
+        })
+        .then(() => (alert("전송되었습니다!")))
+        .catch();
+        console.log(form);
+    };
+
     return (
         <>
         <Menubar/>
@@ -89,37 +124,94 @@ const Rental = () => {
                 )}
             </_Subtext>
             </_Listwrap>
-            <_Writewrap>
+            <_Writewrap 
+            onSubmit={(event: any) => {
+            event.preventDefault();
+            setform({
+                cart,
+                name,
+                studentID,
+                person,
+                period1,
+                period2,
+                meet1,
+                meet2,
+                phonenum,
+                purpose
+            });
+            }}>
                 <_Subtext>신청서 작성</_Subtext>
-                <_Inputtitle>이름<_Input placeholder='이름을 입력해주세요.' width={"150px"}/></_Inputtitle>
-                <_Inputtitle>학번<_Input placeholder='학번을 입력해주세요.' width={"150px"}/></_Inputtitle>
-                <_Inputtitle>이용인원<_Input placeholder='9' width={"35px"} />명</_Inputtitle>
+                <_Inputtitle>이름<_Input onChange={(event) => {
+                    setName(event.target.value);
+                    console.log(name);
+                    }}
+                    type="text"
+                    placeholder='이름을 입력해주세요.' width={"150px"}/></_Inputtitle>
+                <_Inputtitle>학번<_Input 
+                onChange={(event) => {
+                    setstudentID(event.target.value);
+                    console.log(studentID);
+                    }}
+                    type="text"
+                    placeholder='학번을 입력해주세요.' width={"150px"}/></_Inputtitle>
+                <_Inputtitle>이용인원<_Input 
+                onChange={(event) => {setperson(event.target.value);
+                    console.log(person);
+                    }}
+                    type="number"
+                placeholder='9' width={"35px"} />명</_Inputtitle>
                 <Rentaldate>
                 <_Inputtitle>대여기간
                     <_Dropdownwrap>
-                    <input type="date"/> <_Line1/> <input type="date"/>
+                    <input onChange={(event) => {
+                        setperiod1(event.target.value);
+                        console.log(period1);
+                        }}
+                        type="date"/> 
+                        <_Line1/>
+                    <input onChange={(event) => {
+                        setperiod2(event.target.value);
+                        console.log(period2);
+                        }}
+                        type="date"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
                 </Rentaldate>
                 <Rentaldate>
                 <_Inputtitle>불출시점
                     <_Dropdownwrap>
-                        <input type="time"/> <_Line1/> <input type="time"/>
+                        <input onChange={(event) => {
+                            setmeet1(event.target.value);
+                            console.log(meet1);
+                            }}type="time"/>
+                        <_Line1/>
+                        <input onChange={(event) => {
+                            setmeet2(event.target.value);
+                            console.log(meet2);
+                            }}type="time"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
                 </Rentaldate>
-                <_Inputtitle>연락처<_Input type="tel" placeholder="01012345678" maxLength={11}></_Input></_Inputtitle>
+                <_Inputtitle>연락처<_Input onChange={(event) => {
+                        setphonenum(event.target.value);
+                        console.log(phonenum);
+                        }}type="tel" placeholder="01012345678" maxLength={11}></_Input></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
                         <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
-                        <_Input2 placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;
+                        <_Input2 
+                        onChange={(event) => {
+                            setpurpose(event.target.value);
+                            console.log(purpose);
+                            }}
+                        placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;
                             - 촬영일자:  월  일&#13;&#10;
                             - 사용장소:&#13;&#10;
                             - 제작내용:'>
                         </_Input2>
                     </_Input2wrap>
                 </_Input2title>
-                            <Btnwrap><_SubmitBtn bg="#1E00D3" color="#ffffff">제출하기</_SubmitBtn><_SubmitBtn bg="#ffffff" color="#000000">취소</_SubmitBtn></Btnwrap>
+                            <Btnwrap><_SubmitBtn type="submit" onClick={_Submit} bg="#1E00D3" color="#ffffff">제출하기</_SubmitBtn><_SubmitBtn bg="#ffffff" color="#000000">취소</_SubmitBtn></Btnwrap>
             </_Writewrap>
             
         </_Wrap>
@@ -197,7 +289,7 @@ const _Addbtn = styled.button`
     cursor: pointer;
 `
 
-const _Writewrap = styled.div`
+const _Writewrap = styled.form`
     width: 100%;
     margin-top: 10px;
     display: flex;

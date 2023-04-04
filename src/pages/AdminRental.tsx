@@ -56,7 +56,7 @@ const AdminRental = () => {
         <_Inputtitle>이용목적 : {dumy[0].purpose}</_Inputtitle>
     </_Writewrap>
     <Btnwrap>
-        <_SubmitBtn border="2px solid #0cde25" color="#000000" 
+        <_SubmitBtn bgcolor="#01d705" color="#ffffff" 
             onClick={()=>{
                 setAccept(true)
                 alert("수락되었습니다.")
@@ -69,7 +69,7 @@ const AdminRental = () => {
                     console.error(error);
                 });
             }}>수락</_SubmitBtn>
-        <_SubmitBtn border="2px solid #ff0000" color="#000000"
+        <_SubmitBtn bgcolor="#f02a2b" color="#ffffff"
             onClick={()=>{
                 setAccept(false)
                 alert("거절되었습니다.")
@@ -144,16 +144,16 @@ const Btnwrap = styled.div`
 
 //제출버튼
 interface Container{
-    border: any;
+    bgcolor: any;
     color: any;
 }
 const _SubmitBtn = styled.button<Container>`
     width: 25vw;
     height: 60px;
-    border: ${props => props.border};
+    border: none;
     color : ${props => props.color};
     border-radius: 15px;
-    background: none;
+    background: ${props => props.bgcolor};
     margin: 5px;
     margin-top: 15px;
     font-size: 16px;

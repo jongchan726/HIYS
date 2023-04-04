@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import styled, {keyframes} from 'styled-components';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const MenuBar3 = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -10,6 +9,7 @@ const MenuBar3 = () => {
     let navigate = useNavigate();
 
     return (
+        <>
         <Navbar>
             <_Logo src='YSIT-logo.png' onClick={()=>navigate('/')}></_Logo>
         <NavLinks open={isNavOpen}>
@@ -33,26 +33,29 @@ const MenuBar3 = () => {
             </NavLink>
             <_Rightitemwrap>
             {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
-            <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/>
-            {isModalVisible && (
+            {/* <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/> */}
+            <Gologin>
+            <_LoginLink onClick={()=>navigate('/login')}>로그인하기</_LoginLink>
+            </Gologin>
+            {/* {isModalVisible && (
                 <ModalWrapper>
                     <ModalContent>
                         안녕하세요
                     </ModalContent>
                 </ModalWrapper>
-            )}
+            )} */}
             </_Rightitemwrap>
         </NavLinks>
         <Hamburger onClick={() => setIsNavOpen(!isNavOpen)}>
             &#9776;
             </Hamburger>
         </Navbar>
+            <Alert><div>로그인이 되어있지 않습니다.</div></Alert>
+        </>
     );
 }
 
 export default MenuBar3;
-
-
 
 const Navbar = styled.nav`
     display: flex;
@@ -138,6 +141,24 @@ const NavLink = styled.li`
     }
 `;
 
+const Gologin = styled.div`
+    margin-top: 10px;
+    @media (max-width: 600px) {
+        width: 100%;
+        text-align: center;
+    }
+`;
+const _LoginLink = styled.span`
+    color: #555555;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+        color: #1E00D3;
+        padding-bottom: 18px;
+        box-shadow: inset 0 -2px 0 #1E00D3;
+    }
+`;
+
 const _Rightitemwrap = styled.div`
     display: flex;
     align-items: center;
@@ -196,3 +217,11 @@ const ModalContent = styled.div`
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
 
 `;
+
+
+const Alert = styled.div`
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin-top:45vh;
+`

@@ -12,22 +12,24 @@ import AdminRental from './pages/AdminRental'
 import Notification from './pages/Notification'
 import Test from './pages/Test'
 import AddCamera from './pages/AddCamera'
+import Notlogin from './pages/Notlogin'
 
 function App() {
   return (
     <Router>
     <Routes>
-      <Route path="/" element={<UserHome />} />
+      <Route path="/home" element={<UserHome />} />
       <Route path="/admin" element={<AdminHome />} />
       <Route path="/login" element={<UserLogin/>} />
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
-      <Route path="/rental" element={<Rental />} />
+      <Route path="/" element={<Rental />} />
       <Route path="/ad-rental" element={<AdminRental/>} />
       <Route path="/Notification" element={<Notification/>} />
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />
+      <Route path="/nologin" element={<Notlogin />} />
     </Routes>
     </Router>
   );

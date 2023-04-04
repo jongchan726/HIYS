@@ -190,7 +190,7 @@ const _Jobbtn = styled.button`
 
     color: #b7b7b7;
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     font-family: sans-serif;
 
