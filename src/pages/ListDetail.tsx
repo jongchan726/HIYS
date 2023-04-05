@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
 
-const AdminRental = () => {
+const ListDetail = () => {
     const [Accept, setAccept] = useState(true)
     const [dumy, setdumy] = useState([
         {
@@ -88,7 +88,7 @@ const AdminRental = () => {
     );
 };
 
-export default AdminRental;
+export default ListDetail;
 
 const _Wrap = styled.div`
     margin-top: 100px;

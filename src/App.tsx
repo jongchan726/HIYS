@@ -8,8 +8,8 @@ import Signup from './pages/Signup';
 import Findid from './pages/Findid';
 import Findpw from './pages/Findpw';
 import Rental from './pages/Rental';
-import AdminRental from './pages/AdminRental'
-import Notification from './pages/Notification'
+import ListDetail from './pages/ListDetail'
+import RentalList from './pages/RentalList'
 import Test from './pages/Test'
 import AddCamera from './pages/AddCamera'
 import Notlogin from './pages/Notlogin'
@@ -25,8 +25,8 @@ function App() {
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
       <Route path="/" element={<Rental />} />
-      <Route path="/ad-rental" element={<AdminRental/>} />
-      <Route path="/Notification" element={<Notification/>} />
+      <Route path="listdetail" element={<ListDetail/>} />
+      <Route path="/rentallist" element={<RentalList/>} />
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />
       <Route path="/nologin" element={<Notlogin />} />
