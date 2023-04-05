@@ -25,7 +25,7 @@ const Home = () => {
           <Detail>더보기 <Detailsvg/></Detail>
         </Headerwrap>
         <Msgwrap>
-          <Nodatamsg>데이터없</Nodatamsg>
+          <Nodatamsg>데이터없음</Nodatamsg>
         </Msgwrap>
       </_Interface>
       <_Interface>

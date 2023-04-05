@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar'
 import Productlist from '../Productlist.json'
@@ -21,6 +21,15 @@ const Rental = () => {
     let [Product, setProduct] = useState(Productlist);
     const [border1, setborder1] = useState('1px solid #B7B7B7');
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (phonenum.length === 10) {
+        setphonenum(phonenum.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+        }
+        if (phonenum.length === 13) {
+        setphonenum(phonenum.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+        }
+    }, [phonenum]);
 
     const _Submit = () => {
         alert("전송되었습니다")
@@ -145,6 +154,7 @@ const Rental = () => {
                     setName(event.target.value);
                     console.log(name);
                     }}
+                    required
                     type="text"
                     placeholder='이름을 입력해주세요.' width={"150px"}/></_Inputtitle>
                 <_Inputtitle>학번<_Input 
@@ -158,6 +168,7 @@ const Rental = () => {
                 onChange={(event) => {setperson(event.target.value);
                     console.log(person);
                     }}
+                    required
                     type="number"
                 placeholder='9' width={"35px"} />명</_Inputtitle>
                 <Rentaldate>
@@ -167,12 +178,14 @@ const Rental = () => {
                         setperiod1(event.target.value);
                         console.log(period1);
                         }}
+                        required
                         type="date"/> 
                         <_Line1/>
                     <input onChange={(event) => {
                         setperiod2(event.target.value);
                         console.log(period2);
                         }}
+                        required
                         type="date"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
@@ -183,19 +196,30 @@ const Rental = () => {
                         <input onChange={(event) => {
                             setmeet1(event.target.value);
                             console.log(meet1);
-                            }}type="time"/>
+                            }}
+                            required
+                            type="time"/>
                         <_Line1/>
                         <input onChange={(event) => {
                             setmeet2(event.target.value);
                             console.log(meet2);
-                            }}type="time"/>
+                            }}
+                            required
+                            type="time"/>
                     </_Dropdownwrap>
                 </_Inputtitle>
                 </Rentaldate>
-                <_Inputtitle>연락처<_Input onChange={(event) => {
-                        setphonenum(event.target.value);
+                <_Inputtitle>연락처<_Input 
+                    value={phonenum}
+                    onChange={(event) => {setphonenum(event.target.value);
                         console.log(phonenum);
-                        }}type="tel" placeholder="01012345678" maxLength={11}></_Input></_Inputtitle>
+
+                        const regex = /^[0-9\b -]{0,13}$/;
+                        if (regex.test(event.target.value)) {
+                        setphonenum(event.target.value);
+                        }
+                    }} 
+                    required type="tel" placeholder="01012345678" maxLength={13}></_Input></_Inputtitle>
                 <_Input2title>이용목적 및 이용내역
                     <_Input2wrap>
                         <_Subinputtitle>※사용 용도, 작품 내용 등을 구체적으로 적어주세요.</_Subinputtitle>
@@ -204,6 +228,7 @@ const Rental = () => {
                             setpurpose(event.target.value);
                             console.log(purpose);
                             }}
+                            required
                         placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;
                             - 촬영일자:  월  일&#13;&#10;
                             - 사용장소:&#13;&#10;

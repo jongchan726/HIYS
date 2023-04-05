@@ -145,7 +145,7 @@ const Signup = () => {
             />
           </_InputWrap>
           <_Logowrap onClick={handlePasswordType}>
-              {passwordType.visible ? <_Logo src='visible.svg'></_Logo> : <_Logo src='invisible.svg'></_Logo>}
+              {passwordType.visible ? <_Logo src='eye1.svg'></_Logo> : <_Logo src='eye2.svg'></_Logo>}
           </_Logowrap>
           <_InputWrap>
             <_Label>전화번호</_Label>
@@ -217,6 +217,10 @@ const _Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width: 600px) {
+    background: none;
+  }
 `;
 
 interface ContainerProps {
@@ -228,7 +232,7 @@ const _FormWrap = styled.div<ContainerProps>`
   flex-direction: column;
 
   background-color: #ffffff;
-  height: ${({ isInputVisible }) => (isInputVisible ? '690px' : '610px')};
+  height: ${({ isInputVisible }) => (isInputVisible ? '710px' : '620px')};
   /* height: (job === "student" ? '690px' : '610px');
   
   if (job === student) {
@@ -241,6 +245,10 @@ const _FormWrap = styled.div<ContainerProps>`
 
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+
+  @media (max-width: 600px) {
+    box-shadow: none;
+  }
 `;
 
 const _Subtitle = styled.div`
@@ -339,7 +347,7 @@ const _SignUpBtn = styled.button`
 `;
 
 const _SignUpBtnWrap = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
   
   display: flex;
   justify-content: center;

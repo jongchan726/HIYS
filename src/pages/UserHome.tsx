@@ -21,7 +21,7 @@ const Home = () => {
     <_Itfwrap>
     <_Interface>
         <Headerwrap>
-        <Title1>📝 게시</Title1>
+        <Title1>📝 게시판</Title1>
         <Detail>더보기 <Detailsvg/></Detail>
         </Headerwrap>
         <Msgwrap>

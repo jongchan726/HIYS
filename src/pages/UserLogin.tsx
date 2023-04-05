@@ -90,10 +90,9 @@ const UserLogin = () => {
             type={passwordType.type}
             placeholder="비밀번호 입력 (최소 8자)"
             minLength={8}
-            maxLength={12}
             />
             <_Logowrap onClick={handlePasswordType}>
-                {passwordType.visible ? <_Logo src='visible.svg'></_Logo> : <_Logo src='invisible.svg'></_Logo>}
+                {passwordType.visible ? <_Logo src='eye1.svg'></_Logo> : <_Logo src='eye2.svg'></_Logo>}
             </_Logowrap>
         </_InputWrap>
             <Button onClick={llogin} backgroundColor={'#1E00D3'}>
@@ -307,3 +306,4 @@ const _Logowrap = styled.div`
     width: 10px;
     margin-left: 95%;
 `;
+
