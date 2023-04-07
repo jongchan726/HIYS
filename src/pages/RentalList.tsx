@@ -1,21 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar'
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const RentalList = () => {
     let navigate = useNavigate();
-    useEffect(() => {
-        const userget = (response: any) =>{
-            axios
-            .get("http://www.zena.co.kr/api/register")
-            .then(() => (response))
-            .catch();
-            console.log(response);
-        }
-    });
+    let [apply, setapply] = useState(null);
+    const [rentaldata, setrentaldata] = useState([]);
+
+    useEffect(()=>{
+        axios.get("/rental_list.json").then((data)=>{
+            setrentaldata(data.data);
+        })
+    },[])
+    console.log(rentaldata);
+    // useEffect(() => {
+    //     const userget = (response: any) =>{
+    //         axios
+    //         .get("http://www.zena.co.kr/api/register")
+    //         .then((respone) => (setapply(response.data)))
+    //         .catch((error) => {console.error(error)});
+    //         console.log(response);
+    //     }
+    // });
+
     return (
     <>
         <Menubar/>
@@ -25,36 +35,19 @@ const RentalList = () => {
             <div>이름</div>
             <div>일시</div>
         </_Graybar>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
-        <Listwrap>
-            <_List>1</_List>
-            <_List>정채윤</_List>
-            <_List>2023-03-16</_List>
-        </Listwrap>
+        {
+            rentaldata.map((item: any) => (
+            <_Link to={`/listdetail/${item.id}`}>
+                <Listwrap>
+                <_List>{item.number}</_List>
+                <_List>{item.name}</_List>
+                <_List>날짜</_List>
+                </Listwrap>
+            </_Link>
+            ))
+        }
+
+        
     </>
     );
 };
@@ -93,10 +86,16 @@ const Listwrap = styled.ul`
     padding-top: 15px;
     padding-bottom: 15px;
     border-bottom: 0.8px solid #999999;
+    cursor: pointer;
 `
 
 const _List = styled.li`
     font-weight: 400;
     width: 130px;
     text-align: center;
+`
+
+const _Link = styled(Link)`
+    text-decoration: none;
+    color: inherit;
 `

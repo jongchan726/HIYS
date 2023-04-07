@@ -2,34 +2,36 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
+import { useParams } from 'react-router-dom';
 
 const ListDetail = () => {
+    const { id } = useParams(); // get the product ID from the URL
+    const [product, setProduct]:any = useState([]);
     const [Accept, setAccept] = useState(true)
-    const [dumy, setdumy] = useState([
-        {
-            "name" : "정채윤",
-            "number" : "2218",
-            "person" : "5",
-            "period" : "3/14 ~ 3/20",
-            "meet" : "7:00pm ~ 10:00am",
-            "phonenum" : "01050610163",
-            "purpose" : "응애"
-        }
-    ])
-    useEffect(() => {
-        const userget = (response: any) =>{
-            axios
-            .get("http://www.zena.co.kr/api/register")
-            .then(() => (response))
-            .catch();
-            console.log(response);
-        }
-    });
+
+    useEffect(()=>{
+        axios.get("/rental_list.json").then((response) => {
+            const foundProduct = response.data.find(
+            (product: any) => product.id === parseInt(id || '', 10)//////데이터가 안불러와짐
+            );
+            if (foundProduct) {
+            setProduct(foundProduct);
+            }
+            console.log(product)
+        })
+        .catch((error) => console.log(error));
+    },[id]);
+
+    if (!product) {
+        return <div>Product not found.</div>;
+    }
+
+    
     return (
         <>
     <_Wrap>
     <Menubar/>
-    <_Header>{dumy[0].number} {dumy[0].name}님의 신청</_Header>
+    <_Header>{product.number} {product.name}님의 신청</_Header>
     <_List>기자재 목록</_List>
         {/* <Cartwrap>
         {
@@ -47,13 +49,13 @@ const ListDetail = () => {
         </Cartwrap> */}
     <_Write>신청서</_Write>
     <_Writewrap>
-        <_Inputtitle>이름 : {dumy[0].name}</_Inputtitle>
-        <_Inputtitle>학번 : {dumy[0].number}</_Inputtitle>
-        <_Inputtitle>이용인원 : {dumy[0].person}</_Inputtitle>
-        <_Inputtitle>대여기간 : {dumy[0].period}</_Inputtitle>
-        <_Inputtitle>불출시점 : {dumy[0].meet}</_Inputtitle>
-        <_Inputtitle>전화번호 : {dumy[0].phonenum}</_Inputtitle>
-        <_Inputtitle>이용목적 : {dumy[0].purpose}</_Inputtitle>
+        <_Inputtitle>이름 : {product.name}</_Inputtitle>
+        <_Inputtitle>학번 : {product.number}</_Inputtitle>
+        <_Inputtitle>이용인원 : {product.person}</_Inputtitle>
+        <_Inputtitle>대여기간 : {product.period}</_Inputtitle>
+        <_Inputtitle>불출시점 : {product.meet}</_Inputtitle>
+        <_Inputtitle>전화번호 : {product.phonenum}</_Inputtitle>
+        <_Inputtitle>이용목적 : {product.purpose}</_Inputtitle>
     </_Writewrap>
     <Btnwrap>
         <_SubmitBtn bgcolor="#01d705" color="#ffffff" 

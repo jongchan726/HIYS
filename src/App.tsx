@@ -25,7 +25,7 @@ function App() {
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
       <Route path="/" element={<Rental />} />
-      <Route path="listdetail" element={<ListDetail/>} />
+      <Route path="/listdetail/:id" element={<ListDetail/>} />
       <Route path="/rentallist" element={<RentalList/>} />
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />

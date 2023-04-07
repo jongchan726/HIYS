@@ -29,7 +29,7 @@ const MenuBar3 = () => {
             <_Link >학생관리</_Link>
             </NavLink> */}
             <NavLink>
-            <_Link onClick={()=>navigate('/Notification')}>신청내역</_Link>
+            <_Link onClick={()=>navigate('/rentallist')}>신청내역</_Link>
             </NavLink>
             <_Rightitemwrap>
             {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
