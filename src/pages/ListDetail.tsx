@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 const ListDetail = () => {
     const { id } = useParams(); // get the product ID from the URL
@@ -12,7 +12,7 @@ const ListDetail = () => {
     useEffect(()=>{
         axios.get("/rental_list.json").then((response) => {
             const foundProduct = response.data.find(
-            (product: any) => product.id === parseInt(id || '', 10)//////데이터가 안불러와짐
+            (product: any) => product.id == parseInt(id || '', 10)//////데이터가 안불러와짐
             );
             if (foundProduct) {
             setProduct(foundProduct);
@@ -28,25 +28,11 @@ const ListDetail = () => {
 
     
     return (
-        <>
+    <>
     <_Wrap>
     <Menubar/>
     <_Header>{product.number} {product.name}님의 신청</_Header>
     <_List>기자재 목록</_List>
-        {/* <Cartwrap>
-        {
-            cart.map((a: any, i: string | number)=>{
-                    return (
-                        <Cartproductwrap key={i}>
-                        <CartBorder style={{ border: border1 }}>
-                        <CartImg src={`product/${cart[i].url}`} />
-                        </CartBorder>
-                        <CartName>{cart[i].name}</CartName>
-                        </Cartproductwrap>
-                    )
-                    })
-            }
-        </Cartwrap> */}
     <_Write>신청서</_Write>
     <_Writewrap>
         <_Inputtitle>이름 : {product.name}</_Inputtitle>
@@ -184,3 +170,5 @@ const _Inputtitle = styled.div`
     display: flex;
     justify-content: center;
 `
+
+

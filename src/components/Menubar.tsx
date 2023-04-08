@@ -6,12 +6,11 @@ import {Link, useNavigate} from 'react-router-dom';
 const MenuBar3 = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const bell: string = require("../assets/bell.svg").default;
     let navigate = useNavigate();
 
     return (
         <Navbar>
-            <_Logo src='YSIT-logo.png' onClick={()=>navigate('/')}></_Logo>
+            <_Logo src='/YSIT-logo.png' onClick={()=>navigate('/')}></_Logo>
         <NavLinks open={isNavOpen}>
             {/* <NavLink>
             <_Link >게시판</_Link>
@@ -33,7 +32,7 @@ const MenuBar3 = () => {
             </NavLink>
             <_Rightitemwrap>
             {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
-            <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/>
+            <_Profile src='/profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/>
             {isModalVisible && (
                 <ModalWrapper>
                     <ModalContent>

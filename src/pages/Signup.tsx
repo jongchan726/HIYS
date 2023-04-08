@@ -20,11 +20,13 @@ const Signup = () => {
   const handleJobClick1 = () => {
     setJobColor1(color1 === "#B7B7B7" ? "#1E00D3" : "#1E00D3");
     setJobColor2(color2 === "#1E00D3" ? "#B7B7B7" : "#B7B7B7");
+    setIsInputVisible(true);
   };
 
   const handleJobClick2 = () => {
     setJobColor2(color2 === "#B7B7B7" ? "#1E00D3" : "#1E00D3");
     setJobColor1(color1 === "#1E00D3" ? "#B7B7B7" : "#B7B7B7");
+    setIsInputVisible(false);
   };
 
   // const res = await axios.post('http://www.zena.co.kr/api/register', {
@@ -100,7 +102,6 @@ const Signup = () => {
               onClick={() => {
                 setJob("student");
                 console.log(job);
-                setIsInputVisible(!isInputVisible);
                 // isInputVisible==true;
                 handleJobClick1();
                 }}>
@@ -111,7 +112,7 @@ const Signup = () => {
               onClick={() => {
                 setJob("teacher");
                 console.log(job);
-                setIsInputVisible(!isInputVisible);
+                
                 // isInputVisible==true;
                 handleJobClick2();
               }}>
@@ -154,7 +155,6 @@ const Signup = () => {
               value={tel}
               onChange={(event) => {setTel(event.target.value);
                 console.log(tel);
-
                 const regex = /^[0-9\b -]{0,13}$/;
                 if (regex.test(event.target.value)) {
                   setTel(event.target.value);
