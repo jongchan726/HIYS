@@ -100,13 +100,13 @@ padding: 0.5rem 1rem;
 font-size: 1.2rem;
 border: none;
 border-radius: 4px;
-background-color: #0077cc;
+background-color: #1E00D3;
 color: #fff;
 margin-top: 5px;
 cursor: pointer;
 
 &:hover {
-    background-color: #005ea8;
+    background-color: #1800a3;
 }
 `;
 

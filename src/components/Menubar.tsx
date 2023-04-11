@@ -24,11 +24,11 @@ const MenuBar3 = () => {
             {/* <NavLink>
             <_Link >상담신청</_Link>
             </NavLink> */}
-            {/* <NavLink>
-            <_Link >학생관리</_Link>
-            </NavLink> */}
             <NavLink>
             <_Link onClick={()=>navigate('/rentallist')}>신청내역</_Link>
+            </NavLink>
+            <NavLink>
+            <_Link onClick={()=>navigate('/add-camera')} >기자재 추가하기</_Link>
             </NavLink>
             <_Rightitemwrap>
             {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
@@ -36,7 +36,13 @@ const MenuBar3 = () => {
             {isModalVisible && (
                 <ModalWrapper>
                     <ModalContent>
-                        안녕하세요
+                        프로필 수정
+                    </ModalContent>
+                    <ModalContent>
+                        의견 보내기
+                    </ModalContent>
+                    <ModalContent>
+                        로그아웃
                     </ModalContent>
                 </ModalWrapper>
             )}
@@ -182,16 +188,20 @@ const ModalWrapper = styled.div`
     top: 0;
     left: 0;
     margin-top: 70px;
-    margin-left: 85%;
+    /* margin-left: 50px; */
+    border-radius: 3px;
+    margin-left: 80%;
     z-index: 2;
+    background-color: white;
+    width: 150px;
+    height: 117px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const ModalContent = styled.div`
-    background-color: white;
-    padding: 1rem;
-    width: 100px;
-    height: 100px;
-    border-radius: 0.5rem;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
-
+    padding: 8px;
+    :hover {
+        color: #ffffff;
+        background-color: #afafaf;
+    }
 `;

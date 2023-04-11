@@ -54,6 +54,31 @@ const Rental = () => {
         console.log(form);
     };
 
+    function itemExistsInCart(itemId: string) {
+        return cart.some((item:any) => item.id === itemId);
+    }
+
+    const handleIncreaseQuantity = (index:any) => {
+        const updatedCart = [...cart]; // create a copy of the cart array
+        updatedCart[index].quantity += 1; // increase the quantity value by 1 for the selected item
+        setcart(updatedCart); // update the cart state with the updated array
+    }
+
+    const handleDecreaseQuantity = (index: any) => {
+        const updatedCart = [...cart]; // create a copy of the cart array
+        if (updatedCart[index].quantity > 1) { // check if quantity is greater than 0
+            updatedCart[index].quantity -= 1; // decrease the quantity value by 1 for the selected item
+            setcart(updatedCart); // update the cart state with the updated array
+        }
+    }
+    
+    const handleRemoveItem = (index: any) => {
+        const updatedCart = [...cart]; // create a copy of the cart array
+        updatedCart.splice(index, 1); // remove the selected item from the array
+        setcart(updatedCart); // update the cart state with the updated array
+    }
+
+    
     return (
         <>
         <Menubar/>
@@ -67,21 +92,23 @@ const Rental = () => {
                 </_listtitle> */}
             </_Menulist>
             <_Listwrap>
-                <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn><_Addbtn2 onClick={() => navigate("/add-camera")}>기자재 추가하기</_Addbtn2>
+                <_Subtext>기자재 목록<_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
                 <Cartwrap>
-                            {
-                                cart.map((a: any, i: string | number)=>{
-                                        return (
-                                            <Cartproductwrap key={i}>
-                                            <CartBorder style={{ border: border1 }}>
-                                            <CartImg src={`product/${cart[i].url}`} />
-                                            </CartBorder>
-                                            <CartName>{cart[i].name}</CartName>
-                                            </Cartproductwrap>
-                                        )
-                                        })
-                                }
-                            </Cartwrap>
+                {
+                cart.map((item:any, i:any) => (
+                    <Cartproductwrap key={i}>
+                    <CartBorder style={{ border: border1 }}>
+                        <CartImg src={`product/${item.url}`} />
+                    </CartBorder>
+                    <CartName>{item.name}</CartName>
+                    <QuantityPlusBtn onClick={() => handleDecreaseQuantity(i)}>-</QuantityPlusBtn>
+                    <CartQuantity>{item.quantity}</CartQuantity>
+                    <QuantityPlusBtn onClick={() => handleIncreaseQuantity(i)}>+</QuantityPlusBtn>
+                    <CartDelete onClick={() => handleRemoveItem(i)}>삭제</CartDelete>
+                    </Cartproductwrap>
+                ))
+                }
+                </Cartwrap>
                     {isModalVisible && (
                     <ModalWrapper>
                         <ModalContent>
@@ -90,33 +117,46 @@ const Rental = () => {
                             </_Headmodal>
                             <Cartwrap>
                             {
-                                cart.map((a: any, i: string | number)=>{
-                                        return (
-                                            <Cartproductwrap key={i}>
-                                            <CartBorder style={{ border: border1 }}>
-                                            <CartImg src={`product/${cart[i].url}`} />
-                                            </CartBorder>
-                                            <CartName>{cart[i].name}</CartName>
-                                            </Cartproductwrap>
-                                        )
-                                        })
-                                }
+                            cart.map((item:any, i:any) => (
+                                <Cartproductwrap key={i}>
+                                <CartBorder style={{ border: border1 }}>
+                                    <CartImg src={`product/${item.url}`} />
+                                </CartBorder>
+                                <CartName>{item.name}</CartName>
+                                <CartQuantity>{item.quantity}</CartQuantity>
+                                <CartDelete>삭제</CartDelete>
+                                </Cartproductwrap>
+                            ))
+                            }
                             </Cartwrap>
                             <RentalListWrap>
                                 <Sortmenu><_Sort>카메라</_Sort><_Sort>삼각대</_Sort><_Sort>조명</_Sort><_Sort>녹음</_Sort><Search/></Sortmenu>
                                 {
                                 Product.map((a, i)=>{
                                         return (
-                                            
-                                            <Productwrap onClick={()=>{
-                                                const cartItem = {
-                                                    id : Product[i].id,
-                                                    name : Product[i].name,
-                                                    url : Product[i].url,
-                                                    sort : Product[i].sort
-                                                }
-                                                setcart([...cart, cartItem]);
-                                            }} key={i}>
+                                            <Productwrap
+                                                onClick={() => {
+                                                    const itemId:any = Product[i].id;
+                                                    if (itemExistsInCart(itemId)) {
+                                                    //카트에 상품있는경우 수량증가
+                                                    const updatedCart = cart.map((item:any) =>
+                                                        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+                                                    );
+                                                    setcart(updatedCart);
+                                                    } else {
+                                                    //카트에 없을경우 수량 1 추가
+                                                    const cartItem = {
+                                                        id: Product[i].id,
+                                                        name: Product[i].name,
+                                                        url: Product[i].url,
+                                                        sort: Product[i].sort,
+                                                        quantity: 1,
+                                                    };
+                                                    setcart([...cart, cartItem]);
+                                                    }
+                                                }}
+                                                key={i}
+                                                >
                                             <ImgBorder style={{ border: border1 }}>
                                             <ProductImg src={`product/${Product[i].url}`} />
                                             </ImgBorder>
@@ -150,21 +190,21 @@ const Rental = () => {
             });
             }}>
                 <_Subtext>신청서 작성</_Subtext>
-                <_Inputtitle>이름<_Input onChange={(event) => {
+                <_Inputtitle><Label>이름</Label><_Input onChange={(event) => {
                     setName(event.target.value);
                     console.log(name);
                     }}
                     required
                     type="text"
-                    placeholder='이름을 입력해주세요.' width={"150px"}/></_Inputtitle>
-                <_Inputtitle>학번<_Input 
+                    placeholder='이름을 입력해주세요.' width={"200px"}/></_Inputtitle>
+                <_Inputtitle><Label>학번</Label><_Input 
                 onChange={(event) => {
                     setstudentID(event.target.value);
                     console.log(studentID);
                     }}
                     type="text"
-                    placeholder='학번을 입력해주세요.' width={"150px"}/></_Inputtitle>
-                <_Inputtitle>이용인원<_Input 
+                    placeholder='학번을 입력해주세요.' width={"200px"}/></_Inputtitle>
+                <_Inputtitle><Label>이용인원</Label><_Input 
                 onChange={(event) => {setperson(event.target.value);
                     console.log(person);
                     }}
@@ -172,48 +212,47 @@ const Rental = () => {
                     type="number"
                 placeholder='9' width={"35px"} />명</_Inputtitle>
                 <Rentaldate>
-                <_Inputtitle>대여기간
-                    <_Dropdownwrap>
-                    <input onChange={(event) => {
+                <_Inputtitle><Label>대여기간</Label>
+                    {/* <_Dropdownwrap> */}
+                    <_Input onChange={(event) => {
                         setperiod1(event.target.value);
                         console.log(period1);
                         }}
                         required
                         type="date"/> 
                         <_Line1/>
-                    <input onChange={(event) => {
+                    <_Input onChange={(event) => {
                         setperiod2(event.target.value);
                         console.log(period2);
                         }}
                         required
                         type="date"/>
-                    </_Dropdownwrap>
+                    {/* </_Dropdownwrap> */}
                 </_Inputtitle>
                 </Rentaldate>
                 <Rentaldate>
-                <_Inputtitle>불출시점
-                    <_Dropdownwrap>
-                        <input onChange={(event) => {
+                <_Inputtitle><Label>불출시점</Label>
+                    {/* <_Dropdownwrap> */}
+                        <_Input onChange={(event) => {
                             setmeet1(event.target.value);
                             console.log(meet1);
                             }}
                             required
                             type="time"/>
                         <_Line1/>
-                        <input onChange={(event) => {
+                        <_Input onChange={(event) => {
                             setmeet2(event.target.value);
                             console.log(meet2);
                             }}
                             required
                             type="time"/>
-                    </_Dropdownwrap>
+                    {/* </_Dropdownwrap> */}
                 </_Inputtitle>
                 </Rentaldate>
-                <_Inputtitle>연락처<_Input 
+                <_Inputtitle><Label>연락처</Label><_Input 
                     value={phonenum}
                     onChange={(event) => {setphonenum(event.target.value);
                         console.log(phonenum);
-
                         const regex = /^[0-9\b -]{0,13}$/;
                         if (regex.test(event.target.value)) {
                         setphonenum(event.target.value);
@@ -272,7 +311,7 @@ const _Header = styled.header`
 const _Listwrap = styled.div`
     width: 100%;
     grid-area: list;
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
 `
@@ -325,21 +364,38 @@ const _Writewrap = styled.form`
 
 const _Inputtitle = styled.div`
     margin-top: 20px;
-    font-size: 20px;
-    font-weight: 500;
     padding-bottom: 20px;
     padding-left: 10px;
+    margin-right: 5px;
     box-shadow: inset 0 -1px 0 #888888;
     display: flex;
+    align-items: center;
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
 `
+
+const Label = styled.label`
+    font-size: 1.2rem;
+    width: 200px;
+    @media (max-width: 600px) {
+        
+    }
+`;
 
 const _Input = styled.input`
     width:${props => props.width};
-    height: 20px;
-    margin-left: 20px;
+    height: 30px;
     border: 1px solid #888888;
     border-radius: 3px;
     padding-left: 5px;
+    @media (max-width: 600px) {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1.2rem;
+    }
 `
 
 //드롭다운 부모
@@ -467,7 +523,10 @@ const ModalContent = styled.div`
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     transform: translateX(-50%) translateY(-50%);
+    overflow-y: auto; // enable vertical scrolling
 `;
+
+
 
 //모달창 내용
 const _Headmodal = styled.h3`
@@ -478,26 +537,24 @@ const _Headmodal = styled.h3`
 
 ////////////////////////////////////////////////////////////////////작업중/////////////////////
 const Cartwrap = styled.div`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 0 25px 0 25px;
-    grid-column-gap: 10px;
 `
 
 const Cartproductwrap = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 0.8px solid #999999;
     align-items: center;
 `
 
 const CartBorder = styled.div`
-    height: 100%;
-    width: 70%;
+    height: 50px;
+    width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 10px;
 `
 
 const CartImg = styled.img`
@@ -511,6 +568,18 @@ const CartName = styled.div`
     margin-top: 5px;
 `
 
+const CartQuantity = styled.div`
+    width: 60px;
+    text-align: center;
+`
+
+const QuantityPlusBtn = styled.button`
+    
+`
+
+const CartDelete = styled.button`
+    
+`
 
 const RentalListWrap = styled.div`
     padding: 0 25px 0 25px;
