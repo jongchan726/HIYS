@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminHome from './pages/AdminHome'
 import UserHome from './pages/UserHome'
@@ -13,6 +12,7 @@ import RentalList from './pages/RentalList'
 import Test from './pages/Test'
 import AddCamera from './pages/AddCamera'
 import Notlogin from './pages/Notlogin'
+import AdminLogin from './pages/AdminLogin'
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />
       <Route path="/nologin" element={<Notlogin />} />
+      <Route path="/adlogin" element={<AdminLogin />} />
     </Routes>
     </Router>
   );

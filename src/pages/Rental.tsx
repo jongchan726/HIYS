@@ -372,8 +372,10 @@ const _Inputtitle = styled.div`
     align-items: center;
 
     @media (max-width: 600px) {
+        display: flex;
         flex-direction: column;
         margin-bottom: 1rem;
+        margin-top: 10px;
     }
 `
 
@@ -381,7 +383,7 @@ const Label = styled.label`
     font-size: 1.2rem;
     width: 200px;
     @media (max-width: 600px) {
-        
+        padding-bottom: 5px;
     }
 `;
 
@@ -436,7 +438,7 @@ const _Input2title = styled.div`
 
 //경고문구
 const _Subinputtitle = styled.span`
-    font-size: 16px;
+    font-size: 13px;
     margin-left: 10px;
     margin-top: 3px;
     color: red;
