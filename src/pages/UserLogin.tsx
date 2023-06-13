@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled,{keyframes} from 'styled-components';
 import TeamName from '../components/TeamName';
-import Button from '../components/Button';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const UserLogin = () => {
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
+    const [job, setjob] = useState('student')
+    const [form, setform] : any = useState('')
     // const [Loding, setLoding] = useState(false)
     const [passwordType,setPasswordType] = useState({
         type:'password',
         visible:false
     })
+    
     const handlePasswordType = (e:any) => {
         setPasswordType(()=>{
             if(!passwordType.visible) {
@@ -31,17 +33,33 @@ const UserLogin = () => {
     }
 
     // login 버튼 클릭 이벤트
-    const onClickLogin = () => {
-        navigate('/home')
-    }
-    const llogin = () => {
-        axios.post("http://www.zena.co.kr/api/login", {
-                email : inputId,
-                password : inputPw
-            })
-            .then(() => navigate("/"))
-            .catch()
-    }
+    // const llogin = () => {
+
+    //     axios.post("http://www.zena.co.kr/api/login", {
+    //             email : inputId,
+    //             password : inputPw,
+    //             job : job
+    //         })
+    //         .then((res) => {
+    //             if (res.status == 200) {
+    //                 navigate("/")
+    //                 alert(res.status)
+    //             } else if (res.status == 202) {
+    //                 //경고 => 메시지 res.data.message
+    //                 alert(res.status)
+    //             } else {
+    //                 //예외
+    //                 alert(res.status)
+    //             }
+    //         })
+    //         .catch(()=>{alert("아이디 비번이 틀렸습니다")})
+        
+    //     console.log({
+    //         email : inputId,
+    //         password : inputPw,
+    //         job : job
+    //     })
+    // }
     
     let navigate = useNavigate();
     const [color1, setColor1] = useState('#1E00D3');
@@ -50,16 +68,59 @@ const UserLogin = () => {
     const handleClick1 = () => {
         setColor1(color1 === '#B7B7B7' ? '#1E00D3' : '#1E00D3');
         setColor2(color2 === '#1E00D3' ? '#B7B7B7' : '#B7B7B7');
+        setjob("student");
     };
     
     const handleClick2 = () => {
         setColor2(color2 === '#B7B7B7' ? '#1E00D3' : '#1E00D3');
         setColor1(color1 === '#1E00D3' ? '#B7B7B7' : '#B7B7B7');
+        setjob("teacher");
     };
         
     return (
         <div>
+            <form onSubmit={(event: any) => {
+                event.preventDefault();
+                setform({
+                    email : inputId,
+                    password : inputPw,
+                    job : job
+                    //Rhcbrjfnfmfskffu
+                });
+
+                axios.post("http://www.zena.co.kr/api/login", {
+                    email : inputId,
+                    password : inputPw,
+                    job : job
+                })
+                    .then((res: {
+                        data: any; status: number; 
+                    }) => {
+                        if (res.status == 200) {
+                            navigate("/")
+                            alert(res.data.message)
+                            if(res.data.job === 'student') {
+                                navigate("/")
+                            }
+                            else if(res.data.job === "teacher") {
+                                navigate("/find-id")
+                            }
+                        } else if (res.status == 202) {
+                            //경고 => 메시지 res.data.message
+                            alert(res.data.message)
+                        } else {
+                            //예외
+                            alert(res.data.message)
+                        }
+                    })
+                    .catch(()=>{alert("아이디 비번이 틀렸습니다")})
+                
+                console.log({form})
+                }}>
+
+                
             <_Wrapper>
+
             <_Form>
             {/* <_Logo src='YSIT22.png'></_Logo> */}
                 <_Subtitle>안녕하세요!</_Subtitle>
@@ -95,9 +156,10 @@ const UserLogin = () => {
                 {passwordType.visible ? <_Logo src='eye1.svg'></_Logo> : <_Logo src='eye2.svg'></_Logo>}
             </_Logowrap>
         </_InputWrap>
-            <Button onClick={llogin} backgroundColor={'#1E00D3'}>
+            <_Submitbtn type='submit'>
                 로그인 하기
-            </Button>
+            </_Submitbtn>
+            
             <_FindWrap>
                 <_Find onClick={()=>navigate('/find-id')}>아이디 찾기</_Find>
                 <_Line/>
@@ -107,6 +169,7 @@ const UserLogin = () => {
             </_FindWrap>
             </_Form>
             </_Wrapper>
+            </form>
         </div>
     );
 };
@@ -158,7 +221,7 @@ margin: 0px 50px 0px 50px;
 display: flex;
 `;
 
-const _Form = styled.form`
+const _Form = styled.div`
     background-color: #ffffff;
     border-radius: 15px;
 
@@ -307,3 +370,15 @@ const _Logowrap = styled.div`
     margin-left: 95%;
 `;
 
+const _Submitbtn = styled.button`
+    width: 380px;
+    height: 56px;
+    background-color: #1e00d3;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 20px;
+    margin: 0 auto;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+`

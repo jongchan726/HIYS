@@ -14,10 +14,8 @@ const ResponsiveNavbar = () => {
         <MenuItem onClick={()=>navigate('/')}><_Link>대여/반납</_Link></MenuItem>
         <MenuItem onClick={()=>navigate('/rentallist')}><_Link>신청내역</_Link></MenuItem>
         <MenuItem onClick={()=>navigate('/add-camera')}><_Link>기자재 추가하기</_Link></MenuItem>
-        <MenuItem onClick={()=>navigate('/add-camera')}><_Link>기자재 추가하기</_Link></MenuItem>
-        <MenuItem onClick={()=>navigate('/add-camera')}><_Link>기자재 추가하기</_Link></MenuItem>
         </MenuItemWrapper>
-        <LoginButton onClick={()=>navigate('/adlogin')}>관리자로그인</LoginButton>
+        <LoginButton onClick={()=>navigate('/login')}>관리자로그인</LoginButton>
     </Menu>
     </Navbar>
 );
@@ -92,5 +90,6 @@ export default ResponsiveNavbar;
     margin-right : 2rem;
     font-size: 0.9rem;
     font-weight: bold;
+    border-style: none;
     cursor: pointer;
     `;
