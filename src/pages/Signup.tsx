@@ -8,8 +8,8 @@ const Signup = () => {
   const [pw, setPw] = useState("");
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
-  const [form, setform]: any = useState("");
-  const [job, setJob] = useState("");
+  const [form, setform]: any = useState('');
+  const [job, setJob] = useState("student");
   const [tel, setTel] = useState("");
   const [isInputVisible, setIsInputVisible] = useState(true);
   const [inputValue, setInputValue] = useState("");
@@ -29,27 +29,34 @@ const Signup = () => {
     setIsInputVisible(false);
   };
 
-  // const res = await axios.post('http://www.zena.co.kr/api/register', {
-  //         email: email,
-  //         password: password,
-  //         tel: tel,
-  //         studentID: studentID,
-  //         name: name})
+  // const signUp = () => {
+  //   axios.post("http://www.zena.co.kr/api/register", {
+  //       // job: job, //학생, 교사
+  //       email: id, //이메일아이디
+  //       password: pw, //비밀번호
+  //       phoneNumber: tel, //전화번호
+  //       studentID: number, //학번
+  //       firstName: name, //이름
+  //       lastName: name
+  //     })
+  //     .then((res: {
+  //       data: any; status: number; 
+  //   }) => {
+  //       if (res.status == 200) {
+  //           navigate("/")
+  //           alert(res.data.message)
 
-  const signUp = () => {
-    //axios.post("http://3.38.26.161:8080/api/user/login"
-    axios.post("http://www.zena.co.kr/api/register", {
-        job: job, //학생, 교사
-        email: id, //이메일아이디
-        password: pw, //비밀번호
-        tel: tel, //전화번호
-        studentID: number, //학번
-        name: name, //이름
-      })
-      .then(() => navigate("/"))
-      .catch();
-    console.log(form);
-  };
+  //       } else if (res.status == 202) {
+  //           //경고 => 메시지 res.data.message
+  //           alert(res.data.message)
+  //       } else {
+  //           //예외
+  //           alert(res.data.message)
+  //       }
+  //   })
+  //   .catch(()=>{alert("아이디 비번이 틀렸습니다")})
+  //   console.log(form);
+  // };
 
   const [passwordType,setPasswordType] = useState({
     type:'password',
@@ -78,16 +85,42 @@ const Signup = () => {
     <_Wrap >
       <form
         onSubmit={(event: any) => {
-          (job === '' ? setJob("student") : setJob(job));
           event.preventDefault();
-          setform({
-            job,
-            id,
-            pw,
-            tel,
-            number,
-            name,
-          });
+
+        axios.post("http://www.zena.co.kr/api/register", {
+            // job: job, //학생, 교사
+            email: id, //이메일아이디
+            password: pw, //비밀번호
+            phoneNumber: tel, //전화번호
+            studentID: number, //학번
+            firstName: name.substring(0, 1), //성
+            lastName: name.substring(1, 3) //이름
+          })
+          .then((res: {
+            data: any; status: number; 
+          }) => {
+            if (res.status == 200) {
+                navigate("/")
+                alert(res.data.message)
+
+            } else if (res.status == 202) {
+                //경고 => 메시지 res.data.message
+                alert(res.data.message)
+            } else {
+                //예외
+                alert(res.data.message)
+            }
+        })
+        .catch(()=>{alert("로그인 요청 실패")})
+        console.log({
+          // job: job, //학생, 교사
+          email: id, //이메일아이디
+          password: pw, //비밀번호
+          phoneNumber: tel, //전화번호
+          studentID: number, //학번
+          firstName: name.substring(0, 1), //성
+          lastName: name.substring(1, 2) //이름
+        });
         }}
       >
         <_FormWrap isInputVisible={isInputVisible}>
@@ -95,7 +128,10 @@ const Signup = () => {
           <_TeamName>
             I Can Do <_TeamNameColor>IT콘텐츠과</_TeamNameColor>
           </_TeamName>
-          <_BottonWrap>
+
+      {/* -------------------학생,교사 구분 버튼-------------------------- */}
+
+          {/* <_BottonWrap>
             <_JobBtn
               style={{ color: color1 }}
               className="stduent"
@@ -118,15 +154,15 @@ const Signup = () => {
               }}>
               교사
             </_JobBtn>
-          </_BottonWrap>
+          </_BottonWrap> */}
+
+      {/* --------------------------------------------------------- */}
           <_InputWrap>
             <_Label>아이디</_Label>
             <br />
             <_Input
               value={id}
-              onChange={(event) => {setId(event.target.value);
-                console.log(id);
-              }}
+              onChange={(event) => {setId(event.target.value);}}
               type="text"
               placeholder="이메일 아이디"
             />
@@ -136,9 +172,7 @@ const Signup = () => {
             <br />
             <_Input
               value={pw}
-              onChange={(event) => {setPw(event.target.value);
-                console.log(pw);
-              }}
+              onChange={(event) => {setPw(event.target.value);}}
               type={passwordType.type}
               placeholder="비밀번호 입력 (최소 8자)"
               minLength={8}
@@ -154,7 +188,6 @@ const Signup = () => {
             <_Input
               value={tel}
               onChange={(event) => {setTel(event.target.value);
-                console.log(tel);
                 const regex = /^[0-9\b -]{0,13}$/;
                 if (regex.test(event.target.value)) {
                   setTel(event.target.value);
@@ -173,9 +206,7 @@ const Signup = () => {
             <br />
             <_Input
               value={number}
-              onChange={(event) => {setNumber(event.target.value);
-                console.log(number);
-              }}
+              onChange={(event) => {setNumber(event.target.value);}}
               type="text"
               placeholder="예. 3216"
               minLength={4}
@@ -188,9 +219,7 @@ const Signup = () => {
             <br />
             <_Input
               value={name}
-              onChange={(event) => {setName(event.target.value);
-                console.log(name);
-              }}
+              onChange={(event) => {setName(event.target.value);}}
               type="text"
               placeholder="이름을 입력해 주세요."
               minLength={2}
@@ -198,7 +227,7 @@ const Signup = () => {
             />
           </_InputWrap>
           <_SignUpBtnWrap>
-            <_SignUpBtn type="submit" onClick={signUp}>
+            <_SignUpBtn type="submit">
               가입하기
             </_SignUpBtn>
           </_SignUpBtnWrap>
