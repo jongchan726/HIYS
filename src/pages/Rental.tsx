@@ -32,24 +32,24 @@ const Rental = () => {
         }
     }, [phonenum]);
 
-    const _Submit = () => {
-        alert("전송되었습니다")
-        axios.post("http://www.zena.co.kr/api/register", {
-            cart,
-            name,
-            studentID,
-            person,
-            period1,
-            period2,
-            meet1,
-            meet2,
-            phonenum,
-            purpose
-        })
-        .then(() => (alert("전송되었습니다!")))
-        .catch();
-        console.log(form);
-    };
+    // const _Submit = () => {
+    //     alert("전송되었습니다")
+    //     axios.post("http://www.zena.co.kr/api/register", {
+    //         cart,
+    //         name,
+    //         studentID,
+    //         person,
+    //         period1,
+    //         period2,
+    //         meet1,
+    //         meet2,
+    //         phonenum,
+    //         purpose
+    //     })
+    //     .then(() => (alert("전송되었습니다!")))
+    //     .catch();
+    //     console.log(form);
+    // };
 
     function itemExistsInCart(itemId: string) {
         return popupcart.some((item:any) => item.id === itemId);
@@ -94,23 +94,55 @@ const Rental = () => {
         <_Wrap>
         <_Writewrap 
             onSubmit={(event: any) => {
-            event.preventDefault();
-            setform({
-                cart,
-                name,
-                studentID,
-                person,
-                period1,
-                period2,
-                meet1,
-                meet2,
-                phonenum,
-                purpose
-            });
-            }}>
+                event.preventDefault();
+                
+                axios.post("http://www.zena.co.kr/api/EquipmentRental/RentalForm", {
+                    id: "2f98f96b-686f-466b-8a24-7899e19d3efb",
+                    studentID: studentID,
+                    cart: cart,
+                    firstName: name.substring(0, 1),
+                    lastName: name.substring(1, 3),
+                    person: person,
+                    period1: period1,
+                    period2: period2,
+                    meet1: meet1,
+                    meet2: meet2,
+                    phonenum: phonenum,
+                    purpose: purpose
+                    })
+                    .then((res: {
+                    data: any; status: number; 
+                    }) => {
+                    if (res.status == 200) {
+                        alert(res.data.message)
+                    } else if (res.status == 202) {
+                        //경고 => 메시지 res.data.message
+                        alert(res.data.message)
+                    } else {
+                        //예외
+                        alert(res.data.message)
+                    }
+                })
+                .catch(()=>{alert("실패")})
+                console.log({
+                    id: "2f98f96b-686f-466b-8a24-7899e19d3efb",
+                    studentID: studentID,
+                    cart: cart,
+                    firstName: name.substring(0, 1),
+                    lastName: name.substring(1, 3),
+                    person: person,
+                    period1: period1,
+                    period2: period2,
+                    meet1: meet1,
+                    meet2: meet2,
+                    phonenum: phonenum,
+                    purpose: purpose
+                });
+                }}
+                >
             <_Header>신청하기</_Header>
             <_Listwrap>
-                <_Subtext>기자재 목록<_SubmitBtn type="submit" onClick={_Submit} bg="#1E00D3" color="#ffffff">제출하기</_SubmitBtn><_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
+                <_Subtext>기자재 목록<_SubmitBtn type="submit" bg="#1E00D3" color="#ffffff">제출하기</_SubmitBtn><_Addbtn onClick={() => setIsModalVisible(!isModalVisible)}>추가하기 +</_Addbtn>
                 
                 <Cartwrap>
                 {
@@ -137,7 +169,7 @@ const Rental = () => {
                 <_Subtext>신청서 작성</_Subtext>
                 <_Inputtitle><Label>이름</Label><_Input onChange={(event) => {
                     setName(event.target.value);
-                    console.log(name);
+                    
                     }}
                     // required
                     type="text"
@@ -145,13 +177,13 @@ const Rental = () => {
                 <_Inputtitle><Label>학번</Label><_Input 
                 onChange={(event) => {
                     setstudentID(event.target.value);
-                    console.log(studentID);
+                    
                     }}
                     type="text"
                     placeholder='학번을 입력해주세요.' width={"200px"}/></_Inputtitle>
                 <_Inputtitle><Label>이용인원</Label><_Input 
                 onChange={(event) => {setperson(event.target.value);
-                    console.log(person);
+                    
                     }}
                     // required
                     type="number"
@@ -162,14 +194,14 @@ const Rental = () => {
                     <_Dropdownwrap>
                     <_InputRow onChange={(event) => {
                         setperiod1(event.target.value);
-                        console.log(period1);
+                        
                         }}
                         // required
                         type="date"/> 
                         <_Line1/>
                     <_InputRow onChange={(event) => {
                         setperiod2(event.target.value);
-                        console.log(period2);
+                        
                         }}
                         // required
                         type="date"/>
@@ -182,14 +214,14 @@ const Rental = () => {
                     <_Dropdownwrap>
                         <_InputRow onChange={(event) => {
                             setmeet1(event.target.value);
-                            console.log(meet1);
+                            
                             }}
                             // required
                             type="time"/>
                         <_Line1/>
                         <_InputRow onChange={(event) => {
                             setmeet2(event.target.value);
-                            console.log(meet2);
+                            
                             }}
                             // required
                             type="time"/>
@@ -199,7 +231,7 @@ const Rental = () => {
                 <_Inputtitle><Label>연락처</Label><_Input 
                     value={phonenum}
                     onChange={(event) => {setphonenum(event.target.value);
-                        console.log(phonenum);
+                        
                         const regex = /^[0-9\b -]{0,13}$/;
                         if (regex.test(event.target.value)) {
                         setphonenum(event.target.value);
@@ -212,7 +244,7 @@ const Rental = () => {
                         <_Input2 
                         onChange={(event) => {
                             setpurpose(event.target.value);
-                            console.log(purpose);
+                            
                             }}
                             // required
                         placeholder='- 이용목적: (예: 영화콘텐츠 제작, 미디어교육, 행사)&#13;&#10;

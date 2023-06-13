@@ -10,21 +10,46 @@ const RentalList = () => {
     let [apply, setapply] = useState(null);
     const [rentaldata, setrentaldata] = useState([]);
 
-    useEffect(()=>{
-        axios.get("/rental_list.json").then((data)=>{
-            setrentaldata(data.data);
-        })
-    },[])
-    console.log(rentaldata);
+    // useEffect(()=>{
+    //     axios.get("/rental_list.json").then((data)=>{
+    //         setrentaldata(data.data);
+    //     })
+    // },[])
+    // console.log(rentaldata);
+
     // useEffect(() => {
-    //     const userget = (response: any) =>{
-    //         axios
-    //         .get("http://www.zena.co.kr/api/register")
-    //         .then((respone) => (setapply(response.data)))
-    //         .catch((error) => {console.error(error)});
-    //         console.log(response);
-    //     }
-    // });
+    //         axios.post("http://www.zena.co.kr/api/EquipmentRental/RentalInquiry")
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 const responseData = res.data;
+    //             if (responseData.type === '1') {
+    //                 console.log('현재 요청이 없어요.');
+    //             } else if (responseData.type === '2') {
+    //                 const resData = responseData.data;
+    //                 console.log('data:', resData);
+    //             }
+    //             } else if (res.status == 202) {
+    //                 alert(res.data.message)
+    //             } else {
+    //                 alert(res.data.message)
+    //             }
+    //         })
+    //         .catch(()=>{
+    //             alert("요청 실패")
+    //         });
+    // }, []);
+
+    useEffect(() => {
+        axios.post("http://www.zena.co.kr/api/EquipmentRental/RentalInquiry")
+            .then(res => {
+                setrentaldata(res.data.data)
+                console.log(res.data);
+            })
+            .catch(() => {
+                alert("Request Failed")
+            });
+    }, []);
+    console.log(rentaldata)
 
     return (
     <>
@@ -37,11 +62,11 @@ const RentalList = () => {
         </_Graybar>
         {
             rentaldata.map((item: any) => (
-            <_Link to={`/listdetail/${item.id}`}>
+            <_Link to={`/listdetail/${item.index}`}>
                 <Listwrap>
-                <_List>{item.number}</_List>
-                <_List>{item.name}</_List>
-                <_List>날짜</_List>
+                <_List>{item.studentID}</_List>
+                <_List>{item.firstname+item.lastname}</_List>
+                <_List>{item.created_at}</_List>
                 </Listwrap>
             </_Link>
             ))
