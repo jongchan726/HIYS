@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import Menubar from '../components/Menubar'
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import axiosInstance from '../api/API_Server';
 
+interface ClockProps {}
 
-const RentalList = () => {
+const RentalList: React.FC<ClockProps> = () => {
     let navigate = useNavigate();
     let [apply, setapply] = useState(null);
     const [rentaldata, setrentaldata] = useState([]);
+    const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
     // useEffect(()=>{
     //     axios.get("/rental_list.json").then((data)=>{
@@ -40,7 +43,17 @@ const RentalList = () => {
     // }, []);
 
     useEffect(() => {
-        axios.post("http://www.zena.co.kr/api/EquipmentRental/RentalInquiry")
+        setCurrentDate(new Date());
+    }, []);
+    
+    const formattedDate = currentDate.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+
+    useEffect(() => {
+        axiosInstance.post("/EquipmentRental/RentalInquiry")
             .then(res => {
                 setrentaldata(res.data.data)
                 console.log(res.data);
@@ -50,6 +63,7 @@ const RentalList = () => {
             });
     }, []);
     console.log(rentaldata)
+
 
     return (
     <>
@@ -61,12 +75,16 @@ const RentalList = () => {
             <div>일시</div>
         </_Graybar>
         {
+            // item.created_at.substring(5, 16).replace(/T/g, '/')
             rentaldata.map((item: any) => (
-            <_Link to={`/listdetail/${item.index}`}>
+            <_Link key={item.id} to={`/listdetail/${item.index}`}>
                 <Listwrap>
                 <_List>{item.studentID}</_List>
-                <_List>{item.firstname+item.lastname}</_List>
-                <_List>{item.created_at}</_List>
+                <_List>{item.firstName+item.lastName}</_List>
+                {/* <_List>{(formattedDate.replace("년", '/').replace("월", '/').replace("일", '').replace(/\s/g, "") === item.created_at.substring(0, 10).replace(/-/g, '/') ? ("true") : ("false"))}</_List> */}
+                {/* <_List>{(formattedDate.replace("년", '/').replace("월", '/').replace("일", '').replace(/\s/g, ""))}</_List> */}
+                <_List>{(item.created_at.substring(5, 16).replace(/-/g, '/').replace(/T/g, '/'))}</_List>
+                {/* <_List>{formattedDate.replace("년", '/').replace("월", '/').replace("일", '').replace(/\s/g, "")}</_List> */}
                 </Listwrap>
             </_Link>
             ))
@@ -88,13 +106,14 @@ const Bar = styled.div`
     align-items: center;
     font-size: 20px;
     font-weight: bold;
-    border-bottom: 0.8px solid #999999;
+    /* border-bottom: 0.8px solid #999999; */
 `
 const _Graybar = styled.div`
-    background: #b5b5b5;
+    background: #5038ff;
+    color: #fff;
     width: 100vw;
     height: 30px;
-    border-top: 1.5px solid gray;
+    /* border-top: 1.5px solid gray; */
     display: flex;
     justify-content: space-between;
     align-items: center;

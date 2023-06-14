@@ -96,14 +96,16 @@ const UserLogin = () => {
                     .then((res: {
                         data: any; status: number; 
                     }) => {
+                        sessionStorage.setItem('userId', res.data.id);
+                        sessionStorage.setItem('job', res.data.job);
                         if (res.status == 200) {
                             navigate("/")
                             alert(res.data.message)
                             if(res.data.job === 'student') {
-                                navigate("/")
+                                navigate("/rental")
                             }
                             else if(res.data.job === "teacher") {
-                                navigate("/find-id")
+                                navigate("/rentallist")
                             }
                         } else if (res.status == 202) {
                             //경고 => 메시지 res.data.message
@@ -114,7 +116,6 @@ const UserLogin = () => {
                         }
                     })
                     .catch(()=>{alert("아이디 비번이 틀렸습니다")})
-                
                 console.log({form})
                 }}>
 

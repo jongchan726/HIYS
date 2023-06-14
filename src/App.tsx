@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminHome from './pages/AdminHome'
 import UserHome from './pages/UserHome'
-import UserLogin from './pages/UserLogin';
+import UserLogin from './pages/Login';
 import Signup from './pages/Signup';
 import Findid from './pages/Findid';
 import Findpw from './pages/Findpw';
@@ -24,12 +24,12 @@ function App() {
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/find-id" element={<Findid />} />
       <Route path="/find-pw" element={<Findpw />} />
-      <Route path="/" element={<Rental />} />
+      <Route path="/rental" element={<Rental />} />
       <Route path="/listdetail/:id" element={<ListDetail/>} />
       <Route path="/rentallist" element={<RentalList/>} />
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />
-      <Route path="/nologin" element={<Notlogin />} />
+      <Route path="/" element={<Notlogin />} />
     </Routes>
     </Router>
   );

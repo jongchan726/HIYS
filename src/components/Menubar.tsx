@@ -1,25 +1,91 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useNavigate} from 'react-router-dom';
+import axiosInstance from '../api/API_Server';
 
 
 const ResponsiveNavbar = () => {
     let navigate = useNavigate();
+    const [ID, setID] = useState(sessionStorage.getItem('userId'));
+    const [job, setjob] = useState(sessionStorage.getItem('job'));
+    const [name, setname] = useState("");
 
+    const Logout = () => {
+        sessionStorage.removeItem('userId');
+        navigate('/')
+        window.location.reload();
+    }
+    useEffect(() => {
+    console.log(ID);
+    if (ID) {
+        axiosInstance
+        .post("/profile", { id: ID, job: job })
+        .then((response) => {
+            console.log(response.data);
+            setname(response.data.firstName+response.data.lastName)
+        })
+        .catch((error) => console.log(error));
+    }
+    }, [ID, job]);
+
+    if (ID) {
+        if(job == "student") {
+            return (
+                <Navbar>
+                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/')} />
+                <Menu>
+                    <MenuItemWrapper>
+                    <MenuItem onClick={() => navigate('/')}>
+                        <_Link>대여/반납</_Link>
+                    </MenuItem>
+                    {/* <MenuItem onClick={() => navigate('/add-camera')}>
+                        <_Link>기자재 추가하기</_Link>
+                    </MenuItem> */}
+                    </MenuItemWrapper>
+                    <Namewrap>
+                        <Name>{name+"님"}</Name>
+                        <Logoutbtn onClick={Logout}>로그아웃</Logoutbtn>
+                    </Namewrap>
+                </Menu>
+                </Navbar>
+            );
+        }else {
+            return (
+                <Navbar>
+                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/')} />
+                <Menu>
+                    <MenuItemWrapper>
+                    <MenuItem onClick={() => navigate('/rentallist')}>
+                        <_Link>신청내역</_Link>
+                    </MenuItem>
+                    {/* <MenuItem onClick={() => navigate('/add-camera')}>
+                        <_Link>기자재 추가하기</_Link>
+                    </MenuItem> */}
+                    </MenuItemWrapper>
+                    <Namewrap>
+                        <Name>{name+"님"}</Name>
+                        <Logoutbtn onClick={Logout}>로그아웃</Logoutbtn>
+                    </Namewrap>
+                    
+                </Menu>
+                </Navbar>
+            );
+        };
+    } else {
     return (
-    <Navbar>
-    <Logo src="/YSIT-logo.png" alt="logo" onClick={()=>navigate('/')}/>
-    <Menu>
-        <MenuItemWrapper>
-        <MenuItem onClick={()=>navigate('/')}><_Link>대여/반납</_Link></MenuItem>
-        <MenuItem onClick={()=>navigate('/rentallist')}><_Link>신청내역</_Link></MenuItem>
-        <MenuItem onClick={()=>navigate('/add-camera')}><_Link>기자재 추가하기</_Link></MenuItem>
-        </MenuItemWrapper>
-        <LoginButton onClick={()=>navigate('/login')}>관리자로그인</LoginButton>
-    </Menu>
-    </Navbar>
-);
+        <Navbar>
+        <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/')} />
+        <Menu>
+            <MenuItemWrapper>
+            
+            </MenuItemWrapper>
+            <LoginButton onClick={()=>navigate('/login')}>로그인</LoginButton>
+        </Menu>
+        </Navbar>
+    );
+    }
 };
+
 
 export default ResponsiveNavbar;
 
@@ -77,7 +143,6 @@ export default ResponsiveNavbar;
     &:hover {
         color: #1E00D3;
         padding-bottom: 18px;
-        box-shadow: inset 0 -2px 0 #1E00D3;
     }
 `;
     
@@ -92,4 +157,33 @@ export default ResponsiveNavbar;
     font-weight: bold;
     border-style: none;
     cursor: pointer;
-    `;
+`;
+
+const Logoutbtn = styled.span`
+    background-color: #6f6f6f;
+    color: #fff;
+    padding: 0.2rem 0.7rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-style: none;
+    cursor: pointer;
+`
+
+const Namewrap = styled.div`
+    display: flex;
+    width: 150px;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 15px;
+
+`
+
+const Name = styled.span`
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    @media (max-width: 600px) {
+        font-size: 0.7rem;
+    }
+`

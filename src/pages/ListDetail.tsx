@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
 import { useParams} from 'react-router-dom';
+import axiosInstance from '../api/API_Server';
 
 const ListDetail = () => {
     const { id } = useParams(); // get the product ID from the URL
@@ -10,33 +11,24 @@ const ListDetail = () => {
     const [Accept, setAccept] = useState(true)
 
     useEffect(()=>{
-        axios.get("/rental_list.json").then((response) => {
-            const foundProduct = response.data.find(
-            (product: any) => product.id == parseInt(id || '', 10)//////데이터가 안불러와짐
-            );
-            if (foundProduct) {
-            setProduct(foundProduct);
-            }
-            console.log(product)
+        axiosInstance.post("/EquipmentRental/RentalInquiry", {id}).then((response) => {
+            console.log(response.data.data)
+            setProduct(response.data.data);
         })
         .catch((error) => console.log(error));
-    },[id]);
-
-    if (!product) {
-        return <div>Product not found.</div>;
-    }
+    },[]);
 
     
     return (
     <>
     <_Wrap>
     <Menubar/>
-    <_Header>{product.number} {product.name}님의 신청</_Header>
+    <_Header>{product.studentID} {product.firstName+product.lastName}님의 신청</_Header>
     <_List>기자재 목록</_List>
     <_Write>신청서</_Write>
     <_Writewrap>
-        <_Inputtitle>이름 : {product.name}</_Inputtitle>
-        <_Inputtitle>학번 : {product.number}</_Inputtitle>
+        <_Inputtitle>이름 : {product.firstName+product.lastName}</_Inputtitle>
+        <_Inputtitle>학번 : {product.studentID}</_Inputtitle>
         <_Inputtitle>이용인원 : {product.person}</_Inputtitle>
         <_Inputtitle>대여기간 : {product.period}</_Inputtitle>
         <_Inputtitle>불출시점 : {product.meet}</_Inputtitle>
@@ -49,7 +41,12 @@ const ListDetail = () => {
                 setAccept(true)
                 alert("수락되었습니다.")
                 console.log(Accept)
-                axios.post('https://jsonplaceholder.typicode.com/posts', {Accept})
+                axios.post('https://jsonplaceholder.typicode.com/posts', {
+                    studentID:"hi",
+                    teacherID:"imteacher",
+                    buttonType:'accept',
+                    methodName:"rentalform"
+                })
                 .then(response => {
                     console.log(response.data);
                 })

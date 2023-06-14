@@ -1,55 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Menubar from '../components/Menubar'
 
 const MenuBar3 = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const bell: string = require("../assets/bell.svg").default;
     let navigate = useNavigate();
-
+    
     return (
         <>
-        <Navbar>
-            <_Logo src='YSIT-logo.png' onClick={()=>navigate('/')}></_Logo>
-        <NavLinks open={isNavOpen}>
-            {/* <NavLink>
-            <_Link >게시판</_Link>
-            </NavLink> */}
-            {/* <NavLink>
-            <_Link >방과후</_Link>
-            </NavLink> */}
-            <NavLink>
-            <_Link onClick={()=>navigate('/')}>대여/반납</_Link>
-            </NavLink>
-            {/* <NavLink>
-            <_Link >상담신청</_Link>
-            </NavLink> */}
-            {/* <NavLink>
-            <_Link >학생관리</_Link>
-            </NavLink> */}
-            <NavLink>
-            <_Link onClick={()=>navigate('/Notification')}>신청내역</_Link>
-            </NavLink>
-            <_Rightitemwrap>
-            {/* <_Bell src={bell} alt="logo" onClick={()=>navigate('/Notification')}/> */}
-            {/* <_Profile src='profile.jpeg'  onClick={() => setIsModalVisible(!isModalVisible)}/> */}
-            <Gologin>
-            <_LoginLink onClick={()=>navigate('/login')}>로그인하기</_LoginLink>
-            </Gologin>
-            {/* {isModalVisible && (
-                <ModalWrapper>
-                    <ModalContent>
-                        안녕하세요
-                    </ModalContent>
-                </ModalWrapper>
-            )} */}
-            </_Rightitemwrap>
-        </NavLinks>
-        <Hamburger onClick={() => setIsNavOpen(!isNavOpen)}>
-            &#9776;
-            </Hamburger>
-        </Navbar>
+            <Menubar/>
             <Alert><div>로그인이 되어있지 않습니다.</div></Alert>
         </>
     );
