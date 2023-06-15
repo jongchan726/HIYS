@@ -12,6 +12,7 @@ import RentalList from './pages/RentalList'
 import Test from './pages/Test'
 import AddCamera from './pages/AddCamera'
 import Notlogin from './pages/Notlogin'
+import RentalStatus from './pages/RentalStatus'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path="/test" element={<Test />} />
       <Route path="/add-camera" element={<AddCamera />} />
       <Route path="/" element={<Notlogin />} />
+      <Route path="/status" element={<RentalStatus />} />
     </Routes>
     </Router>
   );

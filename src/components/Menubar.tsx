@@ -32,11 +32,14 @@ const ResponsiveNavbar = () => {
         if(job == "student") {
             return (
                 <Navbar>
-                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/rental')} />
+                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/home')} />
                 <Menu>
                     <MenuItemWrapper>
                     <MenuItem onClick={() => navigate('/rental')}>
-                        <_Link>대여/반납</_Link>
+                        <_Link>대여 신청하기</_Link>
+                    </MenuItem>
+                    <MenuItem onClick={() => navigate('/status')}>
+                        <_Link>나의 신청현황</_Link>
                     </MenuItem>
                     {/* <MenuItem onClick={() => navigate('/add-camera')}>
                         <_Link>기자재 추가하기</_Link>
