@@ -2,76 +2,100 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Menubar from '../components/Menubar'
-import { useParams} from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import axiosInstance from '../api/API_Server';
 
 const ListDetail = () => {
+    let navigate = useNavigate();
     const { id } = useParams(); // get the product ID from the URL
     const [product, setProduct]:any = useState([]);
-    const [Accept, setAccept] = useState(true)
+    const [Accept, setAccept] = useState(true);
+    const [StudentID, setStudentID] = useState("");
+    const [ID, setID] = useState(sessionStorage.getItem('userId'));
+    const [job, setjob] = useState(sessionStorage.getItem('job'));
 
     useEffect(()=>{
         axiosInstance.post("/EquipmentRental/RentalInquiry", {id}).then((response) => {
-            console.log(response.data.data)
+            console.log(response.data.data);
             setProduct(response.data.data);
+            setStudentID(response.data.id);
         })
         .catch((error) => console.log(error));
     },[]);
 
+    useEffect(() => {
+        if (job !== "teacher") {
+            setTimeout(() => {
+                alert("관리자 로그인이 필요합니다.");
+                navigate("/home");
+            }, 0);
+        }
+        }, []);
     
-    return (
-    <>
-    <_Wrap>
-    <Menubar/>
-    <_Header>{product.studentID} {product.firstName+product.lastName}님의 신청</_Header>
-    <_List>기자재 목록</_List>
-    <_Write>신청서</_Write>
-    <_Writewrap>
-        <_Inputtitle>이름 : {product.firstName+product.lastName}</_Inputtitle>
-        <_Inputtitle>학번 : {product.studentID}</_Inputtitle>
-        <_Inputtitle>이용인원 : {product.person}</_Inputtitle>
-        <_Inputtitle>대여기간 : {product.period}</_Inputtitle>
-        <_Inputtitle>불출시점 : {product.meet}</_Inputtitle>
-        <_Inputtitle>전화번호 : {product.phonenum}</_Inputtitle>
-        <_Inputtitle>이용목적 : {product.purpose}</_Inputtitle>
-    </_Writewrap>
-    <Btnwrap>
-        <_SubmitBtn bgcolor="#01d705" color="#ffffff" 
-            onClick={()=>{
-                setAccept(true)
-                alert("수락되었습니다.")
-                console.log(Accept)
-                axios.post('https://jsonplaceholder.typicode.com/posts', {
-                    studentID:"hi",
-                    teacherID:"imteacher",
-                    buttonType:'accept',
-                    methodName:"rentalform"
-                })
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-            }}>수락</_SubmitBtn>
-        <_SubmitBtn bgcolor="#f02a2b" color="#ffffff"
-            onClick={()=>{
-                setAccept(false)
-                alert("거절되었습니다.")
-                console.log(Accept)
-                axios.post('https://jsonplaceholder.typicode.com/posts', {Accept})
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-            }}>거절</_SubmitBtn>
-    </Btnwrap>
-    </_Wrap>
-    </>
-    );
-};
+        if (job === "teacher") {
+        // JSX 반환
+        return (
+            <>
+            <_Wrap>
+            <Menubar/>
+            <_Header>{product.studentID} {product.firstName+product.lastName}님의 신청</_Header>
+            <_List>기자재 목록</_List>
+            <_Write>신청서</_Write>
+            <_Writewrap>
+                <_Inputtitle>이름 : {product.firstName+product.lastName}</_Inputtitle>
+                <_Inputtitle>학번 : {product.studentID}</_Inputtitle>
+                <_Inputtitle>이용인원 : {product.person}</_Inputtitle>
+                <_Inputtitle>대여기간 : {product.period}</_Inputtitle>
+                <_Inputtitle>불출시점 : {product.meet}</_Inputtitle>
+                <_Inputtitle>전화번호 : {product.phonenum}</_Inputtitle>
+                <_Inputtitle>이용목적 : {product.purpose}</_Inputtitle>
+            </_Writewrap>
+            <Btnwrap>
+                <_SubmitBtn bgcolor="#01d705" color="#ffffff" 
+                    onClick={()=>{
+                        setAccept(true)
+                        alert("수락되었습니다.")
+                        console.log(Accept)
+                        axiosInstance.post('EquipmentRental/AcceptorButton', {
+                            studentID: StudentID,
+                            teacherID: ID,
+                            buttonType:'accept',
+                            methodName:""
+                        })
+                        .then(response => {
+                            console.log(response.data.massage); 
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                    }}>수락</_SubmitBtn>
+                <_SubmitBtn bgcolor="#f02a2b" color="#ffffff"
+                    onClick={()=>{
+                        setAccept(false)
+                        alert("거절되었습니다.")
+                        console.log(Accept)
+                        axiosInstance.post('EquipmentRental/AcceptorButton', {
+                            studentID: StudentID,
+                            teacherID: ID,
+                            buttonType:'decline',
+                            methodName:""
+                        })
+                        .then(response => {
+                            console.log(response.data);
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                    }}>거절</_SubmitBtn>
+            </Btnwrap>
+            </_Wrap>
+            </>
+        );
+        } else {
+        // 빈 JSX 반환
+        return <></>;
+        }
+    };
 
 export default ListDetail;
 

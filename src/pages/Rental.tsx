@@ -281,7 +281,7 @@ const Rental = () => {
                             }
                             </Cartwrap>
                             <RentalListWrap>
-                                <Sortmenu><_SortWrap><_Sort>카메라</_Sort><_Sort>삼각대</_Sort><_Sort>조명</_Sort><_Sort>녹음</_Sort></_SortWrap><Search/></Sortmenu>
+                                <Sortmenu><_SortWrap><_Sort>카메라</_Sort><_Sort>삼각대</_Sort><_Sort>조명</_Sort><_Sort>녹음</_Sort><Search/></_SortWrap></Sortmenu>
                                 {
                                 Product.map((a, i)=>{
                                         return (
@@ -685,6 +685,11 @@ const _Sort = styled.div`
     font-size: 16px;
     padding: 15px;
     cursor: pointer;
+    @media (max-width: 600px) {
+        padding: 8px;
+        font-size: 15px;
+    }
+
     :hover{
         box-shadow: inset 0 -1px 0 #1E00D3;
     }
@@ -699,7 +704,7 @@ const Search = styled.input`
     height: 20px;
     padding-left: 10px;
     @media (max-width: 600px) {
-        width: 150px;
+        width: 130px;
         margin-bottom: 10px;
     }
 `
@@ -717,6 +722,9 @@ const ImgBorder = styled.div`
     align-items: center;
     margin-top: 10px;
     grid-area: product;
+    @media (max-width: 600px) {
+        height: 50px;
+    }
 `
 
 const ProductImg = styled.img`
@@ -730,6 +738,10 @@ const ProductName = styled.div`
     text-align: center;
     margin-top: 5px;
     grid-area: product;
+
+    @media (max-width: 600px) {
+        font-size: 13px;
+    }
 `
 
 const _BtnWrap = styled.nav`

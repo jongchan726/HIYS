@@ -8,11 +8,11 @@ const MenuBar3 = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const bell: string = require("../assets/bell.svg").default;
     let navigate = useNavigate();
-    
+
     return (
         <>
             <Menubar/>
-            <Alert><div>로그인이 되어있지 않습니다.</div></Alert>
+            <Alert><div>로그인 후 이용해주세요.</div></Alert>
         </>
     );
 }

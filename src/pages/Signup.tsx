@@ -100,7 +100,7 @@ const Signup = () => {
             data: any; status: number; 
           }) => {
             if (res.status == 200) {
-                navigate("/")
+                navigate("/login")
                 alert(res.data.message)
 
             } else if (res.status == 202) {
@@ -208,9 +208,9 @@ const Signup = () => {
               value={number}
               onChange={(event) => {setNumber(event.target.value);}}
               type="text"
-              placeholder="예. 3216"
-              minLength={4}
-              maxLength={4}
+              placeholder="예. 30216"
+              minLength={5}
+              maxLength={5}
             />
           </_InputWrap>
           )}

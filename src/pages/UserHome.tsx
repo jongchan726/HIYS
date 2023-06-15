@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Menubar from '../components/Menubar';
 import {useNavigate} from 'react-router-dom';
+import axiosInstance from '../api/API_Server';
 
 const Detailsvg = () => {
 return (
@@ -13,6 +14,18 @@ return (
 
 const Home = () => {
     let navigate = useNavigate();
+    const [meal, setmeal] = useState("");
+
+    useEffect(() => {
+        axiosInstance.post("/meal")
+            .then(res => {
+                setmeal(res.data.lunch);
+                console.log(meal);
+            })
+            .catch(() => {
+                alert("Request Failed")
+            });
+    }, []);
 
     return (
     <>
@@ -41,16 +54,16 @@ const Home = () => {
     <_Itfwrap>
     <_Interface>
         <Headerwrap>
-        <Title1>📚 방과후 신청</Title1>
+        <Title1>🍚 급식표</Title1>
         <Detail>더보기 <Detailsvg/></Detail>
         </Headerwrap>
         <Msgwrap>
-        <Nodatamsg>데이터없음</Nodatamsg>
+        <pre>{meal}</pre>
         </Msgwrap>
     </_Interface>
     <_Interface>
         <Headerwrap>
-        <Title1>💌 상담신청</Title1>
+        <Title1>⏰ 시간표</Title1>
         <Detail>더보기 <Detailsvg/></Detail>
         </Headerwrap>
         <Msgwrap>

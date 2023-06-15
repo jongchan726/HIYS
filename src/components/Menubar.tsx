@@ -32,10 +32,10 @@ const ResponsiveNavbar = () => {
         if(job == "student") {
             return (
                 <Navbar>
-                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/')} />
+                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/rental')} />
                 <Menu>
                     <MenuItemWrapper>
-                    <MenuItem onClick={() => navigate('/')}>
+                    <MenuItem onClick={() => navigate('/rental')}>
                         <_Link>대여/반납</_Link>
                     </MenuItem>
                     {/* <MenuItem onClick={() => navigate('/add-camera')}>
@@ -52,7 +52,7 @@ const ResponsiveNavbar = () => {
         }else {
             return (
                 <Navbar>
-                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/')} />
+                <Logo src="/YSIT-logo.png" alt="logo" onClick={() => navigate('/rentallist')} />
                 <Menu>
                     <MenuItemWrapper>
                     <MenuItem onClick={() => navigate('/rentallist')}>
