@@ -63,7 +63,7 @@ const AddCamera = () => {
         </InputWrapper>
         <Button type="submit">전송</Button>
     </form>
-    </FormWrapper>
+    </FormWrapper>.
     </>
     );
 };
