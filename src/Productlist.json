@@ -1,0 +1,65 @@
+[{
+    "id" : 1,
+    "name" : "Canon XF705",
+    "sort" : "Camera",
+    "url" : "CanonXf705.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 2,
+    "name" : "Canon EOS R6",
+    "sort" : "Camera",
+    "url" : "CanonEOSR6.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 3,
+    "name" : "Canon XF705",
+    "sort" : "Camera",
+    "url" : "CanonXf705.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 4,
+    "name" : "Canon EOS R6",
+    "sort" : "Camera",
+    "url" : "CanonEOSR6.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 5,
+    "name" : "Canon XF705",
+    "sort" : "Camera",
+    "url" : "CanonXf705.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 6,
+    "name" : "Canon EOS R6",
+    "sort" : "Camera",
+    "url" : "CanonEOSR6.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 7,
+    "name" : "Canon XF705",
+    "sort" : "Camera",
+    "url" : "CanonXf705.png",
+    "amount" : 1,
+    "isChecked" : true
+},
+{
+    "id" : 8,
+    "name" : "Canon EOS R6",
+    "sort" : "Camera",
+    "url" : "CanonEOSR6.png",
+    "amount" : 1,
+    "isChecked" : true
+}
+]
