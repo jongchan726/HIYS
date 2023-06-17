@@ -9,10 +9,13 @@ import Findpw from './pages/Findpw';
 import Rental from './pages/Rental';
 import ListDetail from './pages/ListDetail'
 import RentalList from './pages/RentalList'
+import RentalRoom from './pages/RentalRoom'
+import RentalRoom_S from './pages/RentalRoom_S'
 import Test from './pages/Test'
 import AddCamera from './pages/AddCamera'
 import Notlogin from './pages/Notlogin'
 import RentalStatus from './pages/RentalStatus'
+
 
 
 function App() {
@@ -32,6 +35,8 @@ function App() {
       <Route path="/add-camera" element={<AddCamera />} />
       <Route path="/" element={<Notlogin />} />
       <Route path="/status" element={<RentalStatus />} />
+      <Route path="/Room" element={<RentalRoom />} />
+      <Route path="/Room_S" element={<RentalRoom_S />} />
     </Routes>
     </Router>
   );
