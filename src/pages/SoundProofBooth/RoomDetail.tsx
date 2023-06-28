@@ -38,14 +38,14 @@ const ListDetail = () => {
             <>
             <_Wrap>
             <Menubar/>
-            <_Header>{product.studentID} {product.firstName+product.lastName}님의 신청</_Header>
+            <_Header>{product.studentID} {product.first_name+product.last_name}님의 신청</_Header>
             <_List>기자재 목록</_List>
             <_Write>신청서</_Write>
             <_Writewrap>
-                <_Inputtitle>이름 : {product.firstName+product.lastName}</_Inputtitle>
+                <_Inputtitle>이름 : {product.first_name+product.last_name}</_Inputtitle>
                 <_Inputtitle>학번 : {product.studentID}</_Inputtitle>
                 <_Inputtitle>방음부스 : {product.room_number}</_Inputtitle>
-                <_Inputtitle>대여기간 : {product.period}</_Inputtitle>
+                <_Inputtitle>대여시간 : {product.start_time+"~"+product.end_time}</_Inputtitle>
                 <_Inputtitle>이용목적 : {product.purpose}</_Inputtitle>
             </_Writewrap>
             <Btnwrap>

@@ -131,6 +131,7 @@ const _List = styled.div`
     padding-bottom: 10px;
     margin-top: 10px;
     grid-area: listtitle;
+
 `
 
 const _Write = styled.div`
