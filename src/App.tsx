@@ -15,6 +15,8 @@ import Notlogin from './pages/Notlogin'
 import RentalStatus from './pages/Equipment/RentalStatus'
 
 import RentalRoom_S from './pages/SoundProofBooth/RentalRoom_S'
+import RentalRoom_T from './pages/SoundProofBooth/RentalRoom_T'
+import RoomDetail from './pages/SoundProofBooth/RoomDetail'
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
       <Route path="/" element={<Notlogin />} />
       <Route path="/status" element={<RentalStatus />} />
       <Route path="/Room_S" element={<RentalRoom_S />} />
+      <Route path="/Room_T" element={<RentalRoom_T />} />
+      <Route path="/roomdetail/:id" element={<RoomDetail/>} />
     </Routes>
     </Router>
   );

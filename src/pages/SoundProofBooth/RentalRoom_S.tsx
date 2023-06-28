@@ -12,7 +12,7 @@ const RentalRoom_S = () => {
   const [studentID, setStudentID] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [roomNumber, setRoomNumber] = useState('')
+  const [roomNumber, setRoomNumber] = useState('2')
   const [roomUsingStartTime, setRoomUsingStartTime] = useState('')
   const [roomUsingEndTime, setRoomUsingEndTime] = useState('')
   const [roomPurpose, setRoomPurpose] = useState('')
@@ -29,6 +29,10 @@ const RentalRoom_S = () => {
 
   } 
   const test2 = async() =>{
+    console.log(roomUsingStartTime)
+    console.log(roomUsingEndTime)
+    console.log(roomNumber)
+    console.log(roomPurpose)
     await axiosInstance.post('/RoomRental/RentalForm', {
       id: "a7315506-ded3-42e9-aab6-0c92a70aca2a",
       studentID: studentID,
@@ -38,7 +42,9 @@ const RentalRoom_S = () => {
       purpose: roomPurpose,
       usingStartTime: roomUsingStartTime,
       usingEndTime: roomUsingEndTime,
-    }).then((res) => {})
+    }).then((res) => {
+      console.log(res.data)
+    })
 
     }
         // const RoomInfo = () => {
@@ -111,22 +117,21 @@ const RentalRoom_S = () => {
 
     useEffect(()=>{
       RoomInfo();
+      test();
     },[])
     return (
       <_Wrap>
       <_Writewrap>
         <_Header>신청하기</_Header>
         <_Listwrap>
-          <_Subtext>방음부스 목록<_SubmitBtn type="submit" bg="#1E00D3" color="#ffffff">제출하기</_SubmitBtn>
+          <_Subtext>방음부스 목록<_SubmitBtn type="submit" bg="#1E00D3" color="#ffffff" onClick={test2}>제출하기</_SubmitBtn>
               <select name="language">
-                <option value="">--Please choose an option--</option>
+                <option>방음부스 선택하기</option>
                 {
                   roomdata.map((item:any)=>(
-                    <option key={item.id}  value={item.id} disabled ={item.disabled}>{item.id}부스</option>
+                    <option key={item.id}  value={item.id} disabled ={item.disabled}>{item.id} 방음부스</option>
                   ))}
-            </select>
-            
-          
+              </select>
           </_Subtext>
         </_Listwrap>
 

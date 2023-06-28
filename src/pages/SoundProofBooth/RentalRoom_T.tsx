@@ -7,6 +7,10 @@ import { useNavigate, Link} from "react-router-dom";
 const RentalStatus = () => {
     const [rentaldata, setrentaldata] = useState([]);
 
+    const [saveRentalMessage, setSaveRentalMessage] = useState('현재 요청이 없어요.')
+    const [saveRentalInfo, setSaveRentalInfo] = useState([]);
+    const [job, setjob] = useState(sessionStorage.getItem('job'));
+
     // useEffect(() => {
     //     axiosInstance.post("/EquipmentRental/RentalInquiry")
     //         .then(res => {
@@ -17,27 +21,45 @@ const RentalStatus = () => {
     //         alert("요청 실패");
     //         });
     //     }, []);
-
+    const rentalInquiry = async() => {
+        axiosInstance.post('/RoomRental/RentalInquiry')
+            .then((res) => {
+                if (res.data.type === 2) {
+                    console.log(res.data)
+                    setSaveRentalInfo(res.data.data);
+            }
+        }).catch((error) => {
+            console.log('RentalInquiry API | ', error)
+        })
+    }
+    useEffect(()=>{
+        rentalInquiry();
+    },[]);
     return (
-    <>
-    <Menubar/>
-        <Bar>신청내역</Bar>
-        <_Graybar>
-            <div>날짜</div>
-            <div>내용</div>
-            <div>상태</div>
-        </_Graybar>
-        {rentaldata.map((item: any) => ( 
-            <_Link key={item.id} to={`/listdetail/${item.index}`}>
-            <Listwrap>
-                <_List>{"6/18 18:30"}</_List>
-                <_List>{"기자재대여신청"}</_List>
-                <_List>{"수락됨"}</_List>
-            </Listwrap>
-            </_Link>
-        ))}
-    </>
-    );
+        <>
+            {job === 'teacher' &&
+                <>
+
+                    <Menubar/>
+                    <Bar>신청내역</Bar>
+                    <_Graybar>
+                        <div>학번</div>
+                        <div>이름</div>
+                        <div>날짜</div>
+                    </_Graybar>
+                    {saveRentalInfo.map((item:any) => (
+                        <_Link key={item.id} to={`/roomdetail/${item.index}`}>
+                            <Listwrap>
+                                <_List>{item.studentID}</_List>
+                                <_List>{item.first_name+item.last_name}</_List>
+                                <_List>{item.date.substr(2, 8)}</_List>
+                            </Listwrap>
+                        </_Link>
+                    ))}
+                </>
+            }
+        </>
+    )
 };
 
 export default RentalStatus;
